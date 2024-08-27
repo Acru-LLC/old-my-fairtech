@@ -1,12 +1,7 @@
-/*
-* IMPORT MAIN REGISTER_MODULE ROUTES */
-// import modules_routes from "@/modules/routes";
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
-const routes = [
-    // ...modules_routes,
+export default [
     {
         path: '/',
         name: 'dashboard',
@@ -26,12 +21,12 @@ const routes = [
         children: []
     },
     {
-        path: '/online-watching',
-        name: 'OnlineWatching',
+        path: '/privacy-policy',
+        name: 'PrivacyPolicy',
         // meta: {
         //     public: true,
         // },
-        component: () => import('/src/modules/online-watching/onlineWatching.vue'),
+        component: () => import('/src/modules/policy/Index.vue'),
         children: []
     },
     {
@@ -41,6 +36,60 @@ const routes = [
         //     public: true,
         // },
         component: () => import('/src/modules/fair-price/Main.vue'),
+        children: []
+    },
+    {
+        path: '/fair-price-stations',
+        name: 'FairPriceStations',
+        // meta: {
+        //     public: true,
+        // },
+        component: () => import('/src/modules/fair-price/stations/Index1.vue'),
+        children: []
+    },
+    {
+        path: '/online-watching',
+        name: 'OnlineWatching',
+        // meta: {
+        //     public: true,
+        // },
+        component: () => import('/src/modules/online-watching/onlineWatching.vue'),
+        children: []
+    },
+    {
+        path: '/court-online',
+        name: 'CourtOnline',
+        // meta: {
+        //     public: true,
+        // },
+        component: () => import('/src/modules/court-online/onlineSudQarori.vue'),
+        children: []
+    },
+    {
+        path: '/court-table',
+        name: 'CourtTable',
+        // meta: {
+        //     public: true,
+        // },
+        component: () => import('/src/modules/court-table/region.vue'),
+        children: []
+    },
+    {
+        path: '/online-kuzatuv',
+        name: 'OnlineKuzatuv',
+        // meta: {
+        //     public: true,
+        // },
+        component: () => import('/src/modules/online-kuzatuv/index.vue'),
+        children: []
+    },
+    {
+        path: '/sud-xabarnomasi',
+        name: 'SudXabarnomasi',
+        // meta: {
+        //     public: true,
+        // },
+        component: () => import('/src/modules/sud-xabarnomasi/index.vue'),
         children: []
     },
     {
@@ -89,12 +138,7 @@ const routes = [
         children: []
     },
     {
-        path: '/fair-price',
-        name: 'FairPrice',
-        // meta: {
-        //     public: true,
-        // },
-        component: () => import('/src/modules/fair-price/Main.vue'),
-        children: []
+        path: '*',
+        component: () => import('../modules/views/Error.vue'),
     }
 ]

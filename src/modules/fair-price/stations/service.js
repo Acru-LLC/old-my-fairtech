@@ -53,6 +53,10 @@ export default {
         let res = await ApiService.post(`/gas-station/list-type`, withLoader);
         return res;
     },
+    gasStationListData: async function (obj, withLoader = false) {
+        let res = await ApiService.post(`/gas-station/get-station-by-soato-outer?soato=${obj.soato ?  obj.soato : ''}&type=${obj.type ? obj.type : ''}`, withLoader);
+        return res;
+    },
 
 }
 
