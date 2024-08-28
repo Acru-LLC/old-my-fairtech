@@ -4551,8 +4551,8 @@
   "telegram_menu_title": "Raqobat qo'mitasining ''TELEGRAM BOT'' dasturi",
   "telegram_menu_subtitle": "Foydalanuvchilar tomonidan raqobat sohasi yoki iste'molchilar huquqlarinihimoya qilish faoliyati yuzasidan kiritilgan savol va murojaatlarga qisqa fursatda tezkor javob olish",
   "sud_xabarnoma": {
-    "card_title": "Sud xabarnomasi",
-    "card_subtitle": "Xo'jalik yurituvchi subyektlar ustav fondidagi (ustav kapitalidagi) aksiyalarni (ulushlarni) olish hamda ularni qo'shib yuborish va qo'shib olishga doir bitimlarga oldindan rozilik berish to'g'risida murojaat yuborish",
+    "card_title": "Xabarnoma",
+    "card_subtitle": "Maxsus komissiya tomonidan ishlarni majlisga tayinlangan sanasi va vaqti haqida xabarnomani onlayn tarzda olish",
     "require_txt": "Sud xabarnomasini tekshirish uchun JSH SHIR yoki STIR kiriting",
     "take_court_btn": "Xabarnomani o'qish",
     "checked": "Tekshirildi",
