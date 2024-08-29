@@ -37,6 +37,9 @@
           <b-col cols="12" md="6" lg="4" xl="2" class="px-1">
             <div class="frame-hover d-none"></div>
           </b-col>
+          <b-col cols="12" md="6" lg="4" xl="2" class="px-1">
+            <div class="frame-hover d-none"></div>
+          </b-col>
         </b-row>
       </b-col>
     </div>
@@ -51,8 +54,8 @@
         </b-col>
         <b-col cols="6"></b-col>
         <b-col cols="3" class="d-flex justify-content-end">
-          <BaseDatePickerWithValidation v-model="formattedDate" only-form-element not-required
-                                        :disabled="formattedDate === today"/>
+          <BaseDatePickerWithValidation v-model="today" only-form-element not-required
+                                        format="YYYY-MM-DD"/>
           <b-button variant="primary" class="p-2 ml-1" style="height: 34px" @click="sendRequest(selectedRegion.value)">{{$t('actions.search')}}</b-button>
         </b-col>
       </b-row>
@@ -60,7 +63,7 @@
         <h2 v-if="selectedRegionTitle !== $t('rais.region.qomita')"><b class="text-color">{{$t('rais.region.qomita')}} {{ selectedRegionTitle }} </b>{{$t('rais.region.first_part_text')}} <b class="text-color">{{ formattedDate }}</b>
           {{ $t('rais.region.second_part_text') }}</h2>
 
-        <h2 v-else><b class="text-color">{{$t('rais.region.qomita')}} {{ selectedRegionTitle }} </b>{{$t('rais.region.first_part_for_qomita')}} <b class="text-color">{{ formattedDate }}</b>
+        <h2 v-else><b class="text-color"> {{ selectedRegionTitle }} </b>{{$t('rais.region.first_part_for_qomita')}} <b class="text-color">{{ formattedDate }}</b>
           {{ $t('rais.region.second_part_text') }}</h2>
       </b-row>
       <!-- Scrollable Table Container -->
@@ -152,13 +155,13 @@ export default {
   data: () => ({
     showText: false,
     selectedRegion: null,
-    today: new Date().toISOString().slice(0, 10),
+    today: '',
     formattedDate: '',
     selectedOption: null,
     regionIsCentral: null,
     testValue: {},
     regionData: [
-      { value: 17, title: "rais.region.republic" },
+      // { value: 17, title: "rais.region.republic" },
       { value: 1735, title: "rais.region.qoraqalpoq" },
       { value: 1703, title: "rais.region.andijon" },
       { value: 1706, title: "rais.region.buxoro" },
@@ -189,7 +192,7 @@ export default {
       this.showText = !this.showText;
     },
     updateFormattedDate() {
-      this.formattedDate = this.formatDate(this.today);
+      this.formattedDate = this.today;
     },
     formatDate(date) {
       const [year, month, day] = date.split('-');
@@ -201,11 +204,11 @@ export default {
     },
     sendRequest(data) {
       this.loading = true;
-      const today = new Date();
-      const formattedDate = today.toISOString().split('T')[0];
+      // const today = new Date();
+      // const formattedDate = today.toISOString().split('T')[0];
       let check = {
         soato: data,
-        date: formattedDate // formattedDate  // 2023-11-02
+        date: this.formattedDate || this.today // formattedDate  // 2023-11-02
       };
       this.searchLoader = true;
       return CheckService.courtTable(check)
@@ -231,7 +234,7 @@ export default {
             }
           })
           .catch((err) => {
-            this.$toast.error('Error');
+            // this.$toast.error('Error');
           })
           .finally(() => {
             this.searchLoader = false;
@@ -244,8 +247,12 @@ export default {
       this.selectedRegion = null;
     }
   },
-  created() {
+  mounted() {
+    this.today = new Date().toISOString().split('T')[0]; // Set today to the current date
     this.updateFormattedDate();
+  },
+  watch: {
+    today: 'updateFormattedDate'
   },
   computed: {
     selectedRegionTitle() {
