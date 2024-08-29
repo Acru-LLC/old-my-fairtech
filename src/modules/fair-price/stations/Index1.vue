@@ -80,7 +80,7 @@
         <!--Qoraqalpogiston Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="50" y="0" width="30.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -161,7 +161,7 @@
         <!--Samarqand Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="300" y="-13" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -239,7 +239,7 @@
         <!--Toshkent Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="600" y="10" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -314,7 +314,7 @@
         <!--Sirdaryo Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="520" y="140" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -390,7 +390,7 @@
         <!-- Jizzax Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="440" y="50" width="32.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -466,7 +466,7 @@
         <!--Navoiy Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="300" y="110" width="30.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -541,7 +541,7 @@
         <!--Andijon Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="750" y="120" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -617,7 +617,7 @@
         <!--Xorazm Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="50" y="200" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -693,7 +693,7 @@
         <!--Buxoro Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="170" y="300" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -769,7 +769,7 @@
         <!--Qashqadaryo Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="300" y="400" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -845,7 +845,7 @@
         <!--Namangan Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="600" y="305" width="30.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -920,7 +920,7 @@
         <!--Fargona Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="750" y="350" width="38.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -995,7 +995,7 @@
         <!--Surxondaryo Qo'shimcha SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="580" y="400" width="35.4mm" height="40.4mm"
              version="1.1"
-             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+             style="shape-rendering:geometricPrecision; cursor: pointer; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd;max-height: 45rem;"
              viewBox="0 0 5964.22 3321.8"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
@@ -1089,7 +1089,7 @@
         class="custom-width-modal"
         v-model="isModalMap"
         :title="``"
-        hide-header
+        hide-footer
         size="xl"
         :no-close-on-backdrop="true"
     >
