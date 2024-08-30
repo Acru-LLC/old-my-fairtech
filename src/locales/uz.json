@@ -4553,7 +4553,7 @@
   "sud_xabarnoma": {
     "card_title": "XABARNOMA",
     "card_subtitle": "Maxsus komissiya tomonidan ishlarni majlisga tayinlangan sanasi va vaqti haqida xabarnomani onlayn tarzda olish",
-    "require_txt": "Sud xabarnomasini tekshirish uchun JSH SHIR yoki STIR kiriting",
+    "require_txt": "Xabarnomani tekshirish uchun JSH SHIR yoki STIR kiriting",
     "take_court_btn": "Xabarnomani o'qish",
     "checked": "Tekshirildi",
     "checked_today": "Bugun tekshirildi",
