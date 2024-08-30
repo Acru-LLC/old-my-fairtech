@@ -11,7 +11,7 @@
     <b-row style="font-weight: bold; margin-top: 15px">
       <b-col cols="5">{{ $t('stations.stations_name') }}</b-col>
       <b-col cols="5">{{ $t('stations.address') }}</b-col>
-      <b-col cols="2">{{ $t('column.soato') }}</b-col>
+      <b-col cols="2">{{ $t('submodules.integration.soliqQomita_info.tin') }}</b-col>
     </b-row>
     <b-row>
       <b-col cols="5">{{ infoData.nameLong ? infoData.nameLong : '- - -' }}</b-col>
@@ -33,56 +33,122 @@
 
     <b-row style="font-weight: bold; margin-top: 15px">
       <b-col cols="3">{{ $t('stations.name') }}</b-col>
+      <b-col cols="3">{{ $t('stations.max_cost') }}</b-col>
+      <b-col cols="3">{{ $t('stations.min_cost') }}</b-col>
       <b-col cols="3">{{ $t('pharm.medicationPaymentDate') }}</b-col>
-      <b-col cols="3">{{ $t('pharm.pharmUlgurji.productPaymentPrice') }}</b-col>
-      <b-col cols="3">{{ $t('stations.belgilangan') }}</b-col>
     </b-row>
 
     <div v-if="type=='BENZIN'">
-
       <b-row v-if="Object.keys(resData).length !== 0">
-        <b-col cols="3">{{ resData.AI80 ? $t('stations.benzin80') : '- - -' }}</b-col>
+        <b-col cols="3">{{ $t('stations.benzin80') }}</b-col>
+        <b-col cols="3">
+          <div
+              style="border-left: 4px solid  #97052D; width: 50%; background: #AD3958;text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{ resData.AI80 && resData.AI80.maxPrice ? formatNumber(Math.trunc(resData.AI80.maxPrice)) : '- - -' }}
+          </div>
+        </b-col>
+        <b-col cols="3">
+          <div
+              style="border-left: 4px solid  #077863; width: 50% !important; background: #1FA38B;margin-left: 0; text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{ resData.AI80 && resData.AI80.minPrice ? formatNumber(Math.trunc(resData.AI80.minPrice)) : '- - -' }}
+          </div>
+        </b-col>
         <b-col cols="3">{{ resData.AI80 && resData.AI80.date ? resData.AI80 && resData.AI80.date : '- - -' }}</b-col>
-        <b-col cols="3">
-          {{ resData.AI80 && resData.AI80.middlePrice ? formatNumber(Math.trunc(resData.AI80.middlePrice)) : '- - -' }}
-        </b-col>
-        <b-col cols="3">{{ '- - -' }}</b-col>
       </b-row>
-      <b-row v-if="Object.keys(resData).length !== 0">
-        <b-col cols="3">{{ resData.AI92 ? $t('stations.benzin92') : '- - -' }}</b-col>
+      <b-row v-if="Object.keys(resData).length !== 0" class="mt-1">
+        <b-col cols="3">{{ $t('stations.benzin92') }}</b-col>
+        <b-col cols="3">
+          <div
+              style="border-left: 4px solid  #97052D; width: 50%; background: #AD3958;text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{ resData.AI92 && resData.AI92.maxPrice ? formatNumber(Math.trunc(resData.AI92.maxPrice)) : '- - -' }}
+          </div>
+        </b-col>
+        <b-col cols="3">
+          <div
+              style="border-left: 4px solid  #077863; width: 50% !important; background: #1FA38B;margin-left: 0; text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{ resData.AI92 && resData.AI92.minPrice ? formatNumber(Math.trunc(resData.AI92.minPrice)) : '- - -' }}
+          </div>
+        </b-col>
         <b-col cols="3">{{ resData.AI92 && resData.AI92.date ? resData.AI92 && resData.AI92.date : '- - -' }}</b-col>
-        <b-col cols="3">
-          {{ resData.AI92 && resData.AI92.middlePrice ? formatNumber(Math.trunc(resData.AI92.middlePrice)) : '- - -' }}
-        </b-col>
-        <b-col cols="3">{{ '- - -' }}</b-col>
       </b-row>
-      <b-row v-if="Object.keys(resData).length !== 0">
-        <b-col cols="3">{{ resData.AI95 ? $t('stations.benzin95') : '- - -' }}</b-col>
-        <b-col cols="3">{{ resData.AI95 && resData.AI95.date ? resData.AI95 && resData.AI95.date : '- - -' }}</b-col>
+      <b-row v-if="Object.keys(resData).length !== 0" class="mt-1">
+        <b-col cols="3">{{ $t('stations.benzin95') }}</b-col>
         <b-col cols="3">
-          {{ resData.AI95 && resData.AI95.middlePrice ? formatNumber(Math.trunc(resData.AI95.middlePrice)) : '- - -' }}
+          <div
+              style="border-left: 4px solid  #97052D; width: 50%; background: #AD3958;text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{ resData.AI95 && resData.AI95.maxPrice ? formatNumber(Math.trunc(resData.AI95.maxPrice)) : '- - -' }}
+          </div>
         </b-col>
-        <b-col cols="3">{{ '- - -' }}</b-col>
+        <b-col cols="3">
+          <div
+              style="border-left: 4px solid  #077863; width: 50% !important; background: #1FA38B;margin-left: 0; text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{ resData.AI95 && resData.AI95.minPrice ? formatNumber(Math.trunc(resData.AI95.minPrice)) : '- - -' }}
+          </div>
+        </b-col>
+        <b-col cols="3">{{ resData.AI95 && resData.AI95.date ? resData.AI95 && resData.AI95.date : '- - -' }}</b-col>
       </b-row>
     </div>
+
     <div v-if="type=='METAN'">
       <b-row v-if="Object.keys(resData).length !== 0">
         <b-col cols="3">{{ resData.METAN ? $t('stations.metan') : '- - -' }}</b-col>
-        <b-col cols="3">{{ resData.METAN && resData.METAN.date ? resData.METAN && resData.METAN.date : '- - -' }}</b-col>
+
         <b-col cols="3">
-          {{ resData.METAN && resData.METAN.middlePrice ? formatNumber(Math.trunc(resData.METAN.middlePrice)) : '- - -' }}
+          <div
+              style="border-left: 4px solid  #97052D; width: 50%; background: #AD3958;text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{
+              resData.METAN && resData.METAN.maxPrice ? formatNumber(Math.trunc(resData.METAN.maxPrice)) : '- - -'
+            }}
+          </div>
         </b-col>
-        <b-col cols="3">{{ '- - -' }}</b-col>
+        <b-col cols="3">
+          <div
+              style="border-left: 4px solid  #077863; width: 50% !important; background: #1FA38B;margin-left: 0; text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{
+              resData.METAN && resData.METAN.minPrice ? formatNumber(Math.trunc(resData.METAN.minPrice)) : '- - -'
+            }}
+          </div>
+        </b-col>
+        <b-col cols="3">{{
+            resData.METAN && resData.METAN.date ? resData.METAN && resData.METAN.date : '- - -'
+          }}
+        </b-col>
       </b-row>
     </div>
     <div v-if="type=='PROPAN'">
       <b-row v-if="Object.keys(resData).length !== 0">
         <b-col cols="3">{{ resData.PROPAN ? $t('stations.propan') : '- - -' }}</b-col>
-        <b-col cols="3">{{ resData.PROPAN && resData.PROPAN.date ? resData.PROPAN && resData.PROPAN.date : '- - -' }}</b-col>
+
         <b-col cols="3">
-          {{ resData.PROPAN && resData.PROPAN.middlePrice ? formatNumber(Math.trunc(resData.PROPAN.middlePrice)) : '- - -' }}
+          <div
+              style="border-left: 4px solid  #97052D; width: 50%; background: #AD3958;text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{
+              resData.PROPAN && resData.PROPAN.maxPrice ? formatNumber(Math.trunc(resData.PROPAN.maxPrice)) : '- - -'
+            }}
+          </div>
         </b-col>
-        <b-col cols="3">{{ '- - -' }}</b-col>
+        <b-col cols="3">
+          <div
+              style="border-left: 4px solid  #077863; width: 50% !important; background: #1FA38B;margin-left: 0; text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+            {{
+              resData.PROPAN && resData.PROPAN.minPrice ? formatNumber(Math.trunc(resData.PROPAN.minPrice)) : '- - -'
+            }}
+          </div>
+        </b-col>
+        <b-col cols="3">{{
+            resData.PROPAN && resData.PROPAN.date ? resData.PROPAN && resData.PROPAN.date : '- - -'
+          }}
+        </b-col>
       </b-row>
     </div>
 

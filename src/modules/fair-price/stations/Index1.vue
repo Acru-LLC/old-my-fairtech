@@ -1,5 +1,5 @@
 <template>
-  <div style="background: #DADADA">
+  <div>
     <div class="map-container">
 
       <div style="text-align: center; justify-content: center; color:  #2b675b; font-size: 26px; margin-bottom: 30px">
@@ -15,7 +15,7 @@
             :d="region.path"
             :title="region.name"
             @click="selectRegion(region)"
-            style="fill: #304148; stroke: #b0bfc2; stroke-width: 2px; cursor: pointer;"
+            style="fill: #FFFFFF; stroke: #d7d5d5; stroke-width: 2px; cursor: pointer;"
         />
         <!-- Hudud nomlarini yozish qismi -->
         <text
@@ -23,7 +23,7 @@
             :key="'text-' + index"
             :x="getRegionCenter(region).x"
             :y="getRegionCenter(region).y + 7"
-            style="fill: #ffffff; font-size: 8px; font-weight: bold; text-anchor: middle;"
+            style="fill: #2b675b; font-size: 8px; font-weight: bold; text-anchor: middle;"
         >
           {{
             getName({
@@ -1088,7 +1088,7 @@
     <b-modal
         class="custom-width-modal"
         v-model="isModalMap"
-        :title="``"
+        :title="titleText"
         hide-footer
         size="xl"
         :no-close-on-backdrop="true"
@@ -1124,6 +1124,9 @@ export default {
     return {
       locateData: localStorage.getItem('locale'),
       isModalMap: false,
+      titleText: '',
+      titleText1: '',
+      titleText2: '',
       istype: '',
       isSoato: '',
       selectedMap: {},
@@ -1816,10 +1819,16 @@ export default {
     }
   },
   methods: {
-    selectedStationsTypeBtn(item) {
-      console.log(item)
+    async selectedStationsTypeBtn(item) {
       this.istype = item.type
       this.isSoato = item.soato
+
+      this.titleText1 = this.$t('activity.rateInfo.control.placeName') + ": " + await this.getRegionName(item.soato) + "  |  "
+      this.titleText2 = this.$t('stations.name') + ": " + await this.getTypeName(item.type)
+
+      this.titleText = this.titleText1 + ' ' + this.titleText2
+
+
       this.isModalMap = true
     },
     async getRegionPricesFor() {
@@ -1830,6 +1839,50 @@ export default {
       // }
     },
 
+    async getTypeName(type) {
+      let typeName = ''
+      if (type == 'BENZIN') {
+        typeName = this.$t('stations.benzin')
+      } else if (type == 'PROPAN') {
+        typeName = this.$t('stations.propan')
+      } else if (type == 'METAN') {
+        typeName = this.$t('stations.metan')
+      }
+      return typeName
+    },
+    async getRegionName(soato) {
+      let name = ''
+      if (soato == '1703') {
+        name = this.$t('rais.region.andijon')
+      } else if (soato == '1706') {
+        name = this.$t('rais.region.buxoro')
+      } else if (soato == '1708') {
+        name = this.$t('rais.region.jizzax')
+      } else if (soato == '1710') {
+        name = this.$t('rais.region.qashqadaryo')
+      } else if (soato == '1735') {
+        name = this.$t('rais.region.qoraqalpoq')
+      } else if (soato == '1712') {
+        name = this.$t('rais.region.navoi')
+      } else if (soato == '1714') {
+        name = this.$t('rais.region.namangan')
+      } else if (soato == '1718') {
+        name = this.$t('rais.region.samarqand')
+      } else if (soato == '1724') {
+        name = this.$t('rais.region.sirdaryo')
+      } else if (soato == '1722') {
+        name = this.$t('rais.region.surxandaryo')
+      } else if (soato == '1727') {
+        name = this.$t('rais.region.toshkentV')
+      } else if (soato == '1726') {
+        name = this.$t('rais.region.toshkentSh')
+      } else if (soato == '1730') {
+        name = this.$t('rais.region.fargona')
+      } else if (soato == '1733') {
+        name = this.$t('rais.region.xorazm')
+      }
+      return name
+    },
     async getRegionPrices(soato) {
       Service.getRegionPrice(soato)
           .then(async res => {
@@ -1933,7 +1986,7 @@ export default {
 
       Service.gasStationListType()
           .then(async res => {
-            console.log(res.data)
+
             this.gasStationListTypes = res.data
           })
           .catch(e => {
@@ -1999,7 +2052,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 25px;
 }
 
 .svg-overlay {
@@ -2036,7 +2089,7 @@ export default {
 .info-panel {
   width: 80%;
   font-size: 12px;
-  background: #DADADA;
+  background: #FFFFFF;
   padding: 0px;
 }
 

@@ -69,8 +69,6 @@ export default {
     },
     getCurrentDate() {
       const now = new Date();
-      // console.log(new Date())
-      // console.log(now)
       // const options = { year: 'numeric', month: 'long', day: 'numeric' };
       // return now.toLocaleDateString(undefined, options);
       var day = now.getDate()

@@ -22,7 +22,6 @@ export default {
     'stir':{
       handler(vm){
         if(vm.length == 9){
-          // console.log(vm);
           this.findContractorByInn(vm)
         }
       }
@@ -181,11 +180,9 @@ COMPUTED */
     },
     addSingleFile() {
       // Placeholder method for adding a single file
-      console.log('Add Single File');
     },
     saveFiles() {
       // Placeholder method for saving files
-      console.log('Save Files');
     },
     firstDropdown() {
       this.isActiveS1 = !this.isActiveS1

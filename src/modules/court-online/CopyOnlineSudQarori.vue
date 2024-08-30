@@ -24,8 +24,6 @@ export default {
   computed: {
     getCurrentDate() {
       const now = new Date();
-      // console.log(new Date())
-      // console.log(now)
       // const options = { year: 'numeric', month: 'long', day: 'numeric' };
       // return now.toLocaleDateString(undefined, options);
       let day = now.getDate()
@@ -94,7 +92,6 @@ export default {
               this.$toast.error(this.$t('statistics_info.empty_message'));
               this.modalVisible = true;
             }
-            // console.log(result.data)
           })
           .catch((err) => {
             this.$toast.error('Error');
