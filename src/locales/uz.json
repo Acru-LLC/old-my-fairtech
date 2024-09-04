@@ -4546,7 +4546,31 @@
       "chairmon": "Komissiya raisi",
       "work_step": "Ish ko'rish bosqichi",
       "first_step": "Dastlabki bosqich"
-    }
+    },
+    "region": {
+      "tabTitle": "Hududlar",
+      "republic": "Respublika",
+      "qoraqalpoq": "Qoraqalpog‘iston Respublikasi",
+      "andijon": "Andijon viloyati",
+      "buxoro": "Buxoro viloyati",
+      "jizzax": "Jizzax viloyati",
+      "navoi": "Navoiy viloyati",
+      "namangan": "Namangan viloyati",
+      "samarqand": "Samarqand viloyati",
+      "sirdaryo": "Sirdaryo viloyati",
+      "surxandaryo": "Surxondaryo viloyati",
+      "fargona": "Farg‘ona viloyati",
+      "toshkentV": "Toshkent viloyati",
+      "toshkentSh": "Toshkent shahar",
+      "qashqadaryo": "Qashqadaryo viloyati",
+      "xorazm": "Xorazm viloyati",
+      "qomita": "Raqobat qo'mitasi",
+      "only_qomita": "Raqobat qo'mita",
+      "first_part_text": "hududiy boshqarmasining maxsus komissiyasi tomonidan",
+      "first_part_for_qomita": "sining maxsus komissiyasi tomonidan",
+      "second_part_text": "yilga tayinlangan ishlar ro‘yxati"
+    },
+    "empty_modal": "Belgilangan sana bo‘yicha sud majlisiga tayinlangan ishlar mavjud emas!"
   },
   "telegram_menu_title": "Raqobat qo'mitasining ''TELEGRAM BOT'' dasturi",
   "telegram_menu_subtitle": "Foydalanuvchilar tomonidan raqobat sohasi yoki iste'molchilar huquqlarinihimoya qilish faoliyati yuzasidan kiritilgan savol va murojaatlarga qisqa fursatda tezkor javob olish",
