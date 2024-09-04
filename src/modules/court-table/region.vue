@@ -46,46 +46,49 @@
 
     <!-- Table Part -->
     <div v-if="tableVisible" class="p-4">
+
       <b-row class="mb-3 d-flex justify-content-between">
         <b-col cols="1">
           <b-button variant="primary" class="p-2" @click="goBack">
-            {{$t('actions.back')}}
+            <span>{{$t('actions.back')}}</span>
           </b-button>
         </b-col>
         <b-col cols="6"></b-col>
         <b-col cols="3" class="d-flex justify-content-end">
           <BaseDatePickerWithValidation v-model="today" only-form-element not-required
                                         format="YYYY-MM-DD"/>
-          <b-button variant="primary" class="p-2 ml-1" style="height: 34px" @click="sendRequest(selectedRegion.value)">{{$t('actions.search')}}</b-button>
+          <b-button variant="primary" class="p-2 ml-1 d-flex align-items-center" style="height: 34px" @click="sendRequest(selectedRegion.value)"><span>{{$t('actions.search')}}</span></b-button>
         </b-col>
       </b-row>
       <b-row class="mb-3 d-flex justify-content-center">
-        <h2 v-if="selectedRegionTitle !== $t('rais.region.qomita')"><b class="text-color">{{$t('rais.region.qomita')}} {{ selectedRegionTitle }} </b>{{$t('rais.region.first_part_text')}} <b class="text-color">{{ formattedDate }}</b>
-          {{ $t('rais.region.second_part_text') }}</h2>
+        <p v-if="selectedRegionTitle !== $t('court_table_list.region.qomita')"><b class="text-color">{{$t('sud_xabarnoma.qomita')}} {{ selectedRegionTitle }} </b>{{$t('court_table_list.region.first_part_text')}} <b class="text-color">{{ formattedDate }}</b>
+          {{ $t('court_table_list.region.second_part_text') }}</p>
 
-        <h2 v-else><b class="text-color"> {{ selectedRegionTitle }} </b>{{$t('rais.region.first_part_for_qomita')}} <b class="text-color">{{ formattedDate }}</b>
-          {{ $t('rais.region.second_part_text') }}</h2>
+        <p v-else><b class="text-color"> {{ $t('court_table_list.region.only_qomita') }}</b>{{$t('court_table_list.region.first_part_for_qomita')}} <b class="text-color">{{ formattedDate }}</b>
+          {{ $t('court_table_list.region.second_part_text') }}</p>
       </b-row>
       <!-- Scrollable Table Container -->
-      <div class="table-container">
+      <span class="loader" v-if="loading"></span>
+      <div class="table-container" v-if="!loading">
         <table class="table table-striped text-center">
           <thead class="bg-primary text-white">
-          <tr class="text-center font-size-16">
+          <tr class="text-center">
             <th class="align-middle">№</th>
-            <th class="align-middle">{{ $t('court_table_list.table_columns.subyekt') }}</th>
-            <th class="align-middle">{{ $t('court_table_list.table_columns.soha') }}</th>
-            <th class="align-middle">{{ $t('court_table_list.table_columns.docs') }}</th>
-            <th class="align-middle">{{ $t('court_table_list.table_columns.work_number') }}</th>
-            <th class="align-middle">{{ $t('court_table_list.table_columns.date_time') }}</th>
-            <th class="align-middle">{{ $t('court_table_list.table_columns.chairmon') }}</th>
-            <th class="align-middle">{{ $t('court_table_list.table_columns.work_step') }}</th>
+            <th class="align-middle"><span>{{ $t('court_table_list.table_columns.subyekt') }}</span></th>
+            <th class="align-middle"><span>{{ $t('court_table_list.table_columns.soha') }}</span></th>
+            <th class="align-middle"><span>{{ $t('court_table_list.table_columns.docs') }}</span></th>
+            <th class="align-middle"><span>{{ $t('court_table_list.table_columns.work_number') }}</span></th>
+            <th class="align-middle"><span>{{ $t('court_table_list.table_columns.date_time') }}</span></th>
+            <th class="align-middle"><span>{{ $t('court_table_list.table_columns.chairmon') }}</span></th>
+            <th class="align-middle"><span>{{ $t('court_table_list.table_columns.work_step') }}</span></th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="(item, index) in cases" :key="index">
-            <td class="align-middle">{{ index + 1 }}</td>
-            <td class="align-middle">{{ item.step1.nameSubject }}</td>
+            <td class="align-middle"><span>{{ index + 1 }}</span></td>
+            <td class="align-middle"><span>{{ item.step1.nameSubject }}</span></td>
             <td class="align-middle" v-if="item.step1.fieldWorkDto">
+              <span>
               {{
                 getName({
                   nameLt: item.step1.fieldWorkDto.nameLt,
@@ -93,6 +96,7 @@
                   nameRu: item.step1.fieldWorkDto.nameUz,
                 })
               }}
+              </span>
             </td>
             <td class="align-middle">
               <p class="mb-2">
@@ -128,22 +132,33 @@
                 </b>
               </p>
             </td>
-            <td class="align-middle">{{ item.step1.numberOfWork }}</td>
+            <td class="align-middle"><span>{{ item.step1.numberOfWork }}</span></td>
             <td class="align-middle">
+              <span>
               {{
                 item.step1?.dateEnd ? item.step1.dateEnd : item.step2_all?.seeWorkDate ? item.step2_all.seeWorkDate : '- - -'
               }},
               {{
                 item.step1?.timeEnd ? item.step1.timeEnd.slice(0, 5) : item.step2_all?.timeEnd ? item.step2_all.timeEnd.slice(0, 5) : '- - -'
               }}
+              </span>
             </td>
-            <td class="align-middle">{{ item.step1.chairmanCommission }}</td>
-            <td class="align-middle">{{ $t('court_table_list.table_columns.first_step') }}</td>
+            <td class="align-middle"><span>{{ item.step1.chairmanCommission }}</span></td>
+            <td class="align-middle"><span>{{ $t('court_table_list.table_columns.first_step') }}</span></td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+
+<!--      No data modal-->
+    <b-modal id="no-data-modal" hide-footer hide-header no-close-on-esc no-close-on-backdrop size="lg" centered v-model="emptyModal">
+      <div class="d-flex flex-column align-items-center modal-body-custom">
+        <p class="font-size-17">{{ $t('court_table_list.empty_modal') }}</p>
+        <b-button style="width: 150px; border-radius: 10px; background-color: #f39138" class="btn-warning p-1" @click="closeModal"><span>{{ $t('actions.close') }}</span></b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -153,6 +168,7 @@ import CheckService from "@/shared/services/checkService";
 export default {
   name: "Region",
   data: () => ({
+    emptyModal: false,
     showText: false,
     selectedRegion: null,
     today: '',
@@ -162,32 +178,39 @@ export default {
     testValue: {},
     regionData: [
       // { value: 17, title: "rais.region.republic" },
-      { value: 1735, title: "rais.region.qoraqalpoq" },
-      { value: 1703, title: "rais.region.andijon" },
-      { value: 1706, title: "rais.region.buxoro" },
-      { value: 1708, title: "rais.region.jizzax" },
-      { value: 1712, title: "rais.region.navoi" },
-      { value: 1714, title: "rais.region.namangan" },
-      { value: 1718, title: "rais.region.samarqand" },
-      { value: 1724, title: "rais.region.sirdaryo" },
-      { value: 1722, title: "rais.region.surxandaryo" },
-      { value: 1730, title: "rais.region.fargona" },
-      { value: 1727, title: "rais.region.toshkentV" },
-      { value: 1726, title: "rais.region.toshkentSh" },
-      { value: 1710, title: "rais.region.qashqadaryo" },
-      { value: 1733, title: "rais.region.xorazm" },
-      { value: 1, title: "rais.region.qomita" }
+      { value: 1735, title: "court_table_list.region.qoraqalpoq" },
+      { value: 1703, title: "court_table_list.region.andijon" },
+      { value: 1706, title: "court_table_list.region.buxoro" },
+      { value: 1708, title: "court_table_list.region.jizzax" },
+      { value: 1712, title: "court_table_list.region.navoi" },
+      { value: 1714, title: "court_table_list.region.namangan" },
+      { value: 1718, title: "court_table_list.region.samarqand" },
+      { value: 1724, title: "court_table_list.region.sirdaryo" },
+      { value: 1722, title: "court_table_list.region.surxandaryo" },
+      { value: 1730, title: "court_table_list.region.fargona" },
+      { value: 1727, title: "court_table_list.region.toshkentV" },
+      { value: 1726, title: "court_table_list.region.toshkentSh" },
+      { value: 1710, title: "court_table_list.region.qashqadaryo" },
+      { value: 1733, title: "court_table_list.region.xorazm" },
+      { value: 1, title: "court_table_list.region.qomita" }
     ],
     cases: [],
     activeBox: null,
     tableVisible: false,
-    loading: false,
+    loading: true,
     searchLoader: false,
     modalVisible: false,
     searchingModal: false,
     getUserDatas: {}
   }),
   methods: {
+    closeModal() {
+      this.showModal = false;
+      this.$bvModal.hide('no-data-modal');
+    },
+    resetModal() {
+      this.showModal = false;
+    },
     toggleShowText() {
       this.showText = !this.showText;
     },
@@ -201,6 +224,7 @@ export default {
     selectRegion(region) {
       this.selectedRegion = region;
       this.sendRequest(region.value);
+      this.tableVisible = true;
     },
     sendRequest(data) {
       this.loading = true;
@@ -228,13 +252,16 @@ export default {
             ) {
               this.$toast.success(this.$t('statistics_info.download_success'));
               this.modalVisible = true;
+              this.emptyModal = false;
             } else {
               this.$toast.error(this.$t('statistics_info.empty_message'));
               this.modalVisible = true;
+              this.emptyModal = true;
             }
           })
           .catch((err) => {
             // this.$toast.error('Error');
+            this.emptyModal = true;
           })
           .finally(() => {
             this.searchLoader = false;
@@ -271,11 +298,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+a, p, span, div, b, h1, h2, h3, h4, h5, h6, td, th, tr {
+  font-size: 17px;
 }
 .disable-content {
   pointer-events: none;
@@ -350,6 +380,64 @@ th, td {
 .table-container {
   max-height: 500px; /* Adjust this value as needed */
   overflow-y: auto;
+}
+
+.modal-body-custom {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.modal-body-custom p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.modal-body-custom .btn-warning {
+  background-color: #F39138;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.loader {
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  background: currentColor;
+  color: #2c665a;
+  box-sizing: border-box;
+  animation: animloader 0.3s 0.3s linear infinite alternate;
+}
+
+.loader::after, .loader::before {
+  content: '';
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  background: currentColor;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  box-sizing: border-box;
+  animation: animloader 0.3s  0.45s  linear infinite alternate;
+}
+.loader::before {
+  left: -20px;
+  animation-delay: 0s;
+}
+
+@keyframes animloader {
+  0%   { height: 48px}
+  100% { height: 4px}
 }
 /*.box-style:hover {
   background-color: #029984 !important;
