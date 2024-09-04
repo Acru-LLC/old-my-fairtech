@@ -171,117 +171,122 @@ export default {
 <template>
   <div>
     <b-row style="background-color: #e3f2ef; min-height: 100vh">
-    <b-col cols="4" class="p-3" style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15); border-bottom-right-radius: 20px; border-top-right-radius: 20px; background-color: white">
-      <div class="d-flex justify-content-between align-items-center ml-4">
-        <a class="" href="/">
-          <img src="@/assets/image/gerb.svg"
-               width="60" height="60"
-               alt="logo"
-               style="box-shadow: rgb(36, 98, 86) 1px 2px 8px; border-radius: 50%"
-          />
-        </a>
-        <span class="text-color ml-3 font-size-17 custom-font">
+      <b-col :style="modalVisible ? 'opacity: 0.5; pointer-events: none; z-index: 1' : ''" cols="4" class="p-3"
+             style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15); border-bottom-right-radius: 20px; border-top-right-radius: 20px; background-color: white">
+        <div class="d-flex justify-content-between align-items-center ml-4">
+          <a class="" href="/">
+            <img src="@/assets/image/gerb.svg"
+                 width="60" height="60"
+                 alt="logo"
+                 style="box-shadow: rgb(36, 98, 86) 1px 2px 8px; border-radius: 50%"
+            />
+          </a>
+          <span class="text-color ml-3 font-size-15 custom-font font-weight-bold">
                     {{ $t('navbar.main_title') }}
                 </span>
-        <b-dropdown variant="white" right toggle-class="header-item" class="languageBar">
-          <template v-slot:button-content>
-            {{ text }}
-          </template>
-          <b-dropdown-item
-              v-for="(entry, i) in languages"
-              :key="i"
-              :value="entry"
-              :class="{ active: currentLocale.language === entry.language }"
-              @click="changeLocale(entry.language)"
-              class="notify-item"
-          >
-            <span class="align-middle">{{ entry.title }}</span>
-          </b-dropdown-item>
-        </b-dropdown>
-      </div>
+          <b-dropdown variant="white" right toggle-class="header-item" class="languageBar">
+            <template v-slot:button-content>
+              {{ text }}
+            </template>
+            <b-dropdown-item
+                v-for="(entry, i) in languages"
+                :key="i"
+                :value="entry"
+                :class="{ active: currentLocale.language === entry.language }"
+                @click="changeLocale(entry.language)"
+                class="notify-item"
+            >
+              <span class="align-middle">{{ entry.title }}</span>
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
 
-      <div class="ml-4">
-        <h4 class="font-weight-bold my-4 custom-font" style="color: #226358;">
-          {{ $t('sud_xabarnoma.require_txt') }}
-        </h4>
-        <hr style="background-color: #226358; width: 25%; height: 2px;margin-left: 0; margin-top: -10px">
-      </div>
+        <div class="ml-4 mb-4">
+          <h4 class="font-weight-bold my-4 custom-font" style="color: #226358;">
+            {{ $t('sud_xabarnoma.require_txt') }}
+          </h4>
+          <hr style="background-color: #226358; width: 25%; height: 2px;margin-left: 0; margin-top: -10px">
+        </div>
 
-      <div class="ml-4">
-        <div class="d-flex justify-content-between shadow-box custom-font">
-          <button @click="showInput('phoneNumber')"
-                  :class="{'active-class-style': isTelefonActive, 'inactive-class-style': !isTelefonActive}"
-                  class="btn">{{ $t('column.individual') }}
-          </button>
-          <button @click="showInput('pinfl')"
-                  :class="{'active-class-style': isJshshirActive, 'inactive-class-style': !isJshshirActive}"
-                  class="btn">{{ $t('column.legal_entity') }}
+        <div class="ml-4">
+          <div class="d-flex justify-content-between shadow-box custom-font">
+            <button @click="showInput('phoneNumber')"
+                    :class="{'active-class-style': isTelefonActive, 'inactive-class-style': !isTelefonActive}"
+                    class="btn">{{ $t('column.individual') }}
+            </button>
+            <button @click="showInput('pinfl')"
+                    :class="{'active-class-style': isJshshirActive, 'inactive-class-style': !isJshshirActive}"
+                    class="btn">{{ $t('column.legal_entity') }}
+            </button>
+          </div>
+          <div class="d-flex justify-content-center my-3 custom-font">
+            <input v-if="isJshshirActive" class="form-control shadow-box font-size-17" v-model="telefonInput"
+                   v-mask="'### ### ###'" :placeholder="$t('bojxona_info.stir')"/>
+            <input v-if="isTelefonActive" class="form-control shadow-box font-size-17" v-model="jshshirInput"
+                   v-mask="'##############'" :placeholder="$t('pharm_check_sms.pinfl_placeholder')"/>
+          </div>
+          <button @click="sendRequest"
+                  class="btn btn-success w-100 d-flex justify-content-center green-gradient-bg2 custom-font font-size-17">
+            {{ $t('pharm_check_sms.check_btn') }}
           </button>
         </div>
-        <div class="d-flex justify-content-center my-3 custom-font">
-          <input v-if="isJshshirActive" class="form-control shadow-box font-size-17" v-model="telefonInput"
-                 v-mask="'### ### ###'" :placeholder="$t('bojxona_info.stir')"/>
-          <input v-if="isTelefonActive" class="form-control shadow-box font-size-17" v-model="jshshirInput"
-                 v-mask="'##############'" :placeholder="$t('pharm_check_sms.pinfl_placeholder')"/>
-        </div>
-        <button @click="sendRequest"
-                class="btn btn-success w-100 d-flex justify-content-center green-gradient-bg2 custom-font font-size-17">
-          {{ $t('pharm_check_sms.check_btn') }}
-        </button>
-      </div>
 
-      <div class="container-box my-5">
-        <div class="row text-center">
-          <div class="col-md-6 mb-4">
-            <div class="info-box">
-              <h1 class="counter custom-font">{{dailyIndex.body.finished}}</h1>
-              <p class="custom-font text-color font-size-17">
-                {{ $t('sud_xabarnoma.checked') }}
-              </p>
+        <div class="container-box my-5 ml-4">
+          <div class="row text-center">
+            <div class="col-md-6 mb-4">
+              <div class="info-box">
+                <h1 class="counter custom-font">{{ dailyIndex.body.finished }}</h1>
+                <p class="custom-font text-color font-size-17">
+                  {{ $t('sud_xabarnoma.checked') }}
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <div class="info-box highlighted">
+                <h1 class="counter custom-font">{{ dailyIndex.body.lastDayFinished }}</h1>
+                <p class="custom-font text-color font-size-17">
+                  {{ $t('sud_xabarnoma.checked_today') }}
+                </p>
+              </div>
             </div>
           </div>
-          <div class="col-md-6 mb-4">
-            <div class="info-box highlighted">
-              <h1 class="counter custom-font">{{dailyIndex.body.lastDayFinished}}</h1>
-              <p class="custom-font text-color font-size-17">
-                {{ $t('sud_xabarnoma.checked_today') }}
-              </p>
-            </div>
+
+          <div class="contact-info custom-font mt-5">
+            <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg"
+                                        alt="">{{ $t('sud_xabarnoma.telegram') }}</p>
+            <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt="">
+              {{ $t('sud_xabarnoma.support') }}: <a class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a
+                  class="custom-font" href="tel:1159">(1159)</a></p>
+          </div>
+
+          <footer class="mt-5">
+            <p class="custom-font mb-0">{{ $t('sud_xabarnoma.qomita') }}</p>
+            <p class="custom-font">2024</p>
+          </footer>
+        </div>
+        <b-button style="background: #F39138" class="btn btn-warning float-right" size="md" @click="$router.go(-1)">
+          &leftarrow; {{ $t("actions.back") }}
+        </b-button>
+
+      </b-col>
+      <b-col cols="8 d-flex justify-content-center align-items-center position-relative">
+        <div class="logo"></div>
+        <div v-if="modalVisible" class="modal-container">
+          <span class="close-btn" @click="modalVisible = false">&times;</span>
+          <div class="modal-number mt-3 custom-font">
+            {{ getUserDatas ? getUserDatas : 0 }}
+          </div>
+          <div class="text-color text-center p-3">
+            <p class="modal-text font-size-17 custom-font">
+              {{ $t('sud_xabarnoma.modal_message') }}
+            </p>
+            <a href="https://cabinet.fairtech.uz/" target="_blank"
+               class="modal-button green-gradient-bg2 btn btn-success custom-font">
+              {{ $t('sud_xabarnoma.modal_btn') }}
+            </a>
           </div>
         </div>
-
-        <div class="contact-info custom-font">
-          <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg" alt="">{{ $t('sud_xabarnoma.telegram') }}</p>
-            <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt=""> {{ $t('sud_xabarnoma.support') }}: <a  class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a  class="custom-font" href="tel:1159">(1159)</a></p>
-        </div>
-
-        <footer class="mt-5">
-          <p class="custom-font">{{ $t('sud_xabarnoma.qomita') }}</p>
-          <p class="custom-font">2024</p>
-        </footer>
-      </div>
-      <b-button style="background: #F39138" class="btn btn-warning float-right" size="md" @click="$router.go(-1)">
-        &leftarrow; {{ $t("actions.back") }}
-      </b-button>
-
-    </b-col>
-    <b-col cols="8 d-flex justify-content-center align-items-center position-relative">
-      <div class="logo"></div>
-      <div v-if="modalVisible" class="modal-container">
-        <span class="close-btn" @click="modalVisible = false">&times;</span>
-        <div class="modal-number mt-3 custom-font">
-          {{ getUserDatas ? getUserDatas : 0}}
-        </div>
-        <div class="text-color text-center p-3">
-          <p class="modal-text font-size-17 custom-font">
-            {{ $t('sud_xabarnoma.modal_message') }}
-          </p>
-          <a href="https://cabinet.fairtech.uz/" target="_blank" class="modal-button green-gradient-bg2 btn btn-success custom-font">
-            {{ $t('sud_xabarnoma.modal_btn') }}
-          </a>
-        </div>
-      </div>
-    </b-col>
+      </b-col>
     </b-row>
   </div>
 </template>
@@ -296,6 +301,7 @@ export default {
 .custom-font {
   font-family: 'NoirPro', sans-serif;
 }
+
 .header {
   width: 100%;
   height: 10%;
@@ -403,6 +409,7 @@ footer p {
   height: 33px;
   margin-right: 0.25rem;
 }
+
 .logo {
   width: 700px;
   height: 700px;
@@ -410,6 +417,7 @@ footer p {
   background-size: cover;
   opacity: 0.3;
 }
+
 .language-select .selected-language {
   display: flex;
   align-items: center;
@@ -472,6 +480,7 @@ footer p {
   transform: translate(-50%, -50%);
   z-index: 1000;
 }
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -598,8 +607,9 @@ footer p {
   background-repeat: no-repeat;
   background-position: bottom;
 }
-.shadow-box{
-  box-shadow: 0px 0px 6px 4px rgba(227, 242, 239, 1)!important;
+
+.shadow-box {
+  box-shadow: 0px 0px 6px 4px rgba(227, 242, 239, 1) !important;
   border-radius: 8px;
 }
 

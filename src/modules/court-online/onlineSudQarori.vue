@@ -171,7 +171,7 @@ export default {
 <template>
   <div>
     <b-row style="background-color: #e3f2ef; min-height: 100vh">
-      <b-col cols="4" class="p-3" style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15); border-bottom-right-radius: 20px; border-top-right-radius: 20px; background-color: white">
+      <b-col :style="modalVisible ? 'opacity: 0.5; pointer-events: none; z-index: 1' : ''" cols="4" class="p-3" style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15); border-bottom-right-radius: 20px; border-top-right-radius: 20px; background-color: white">
         <div class="d-flex justify-content-between align-items-center ml-4">
           <a class="" href="/">
             <img src="@/assets/image/gerb.svg"
@@ -180,7 +180,7 @@ export default {
                  style="box-shadow: rgb(36, 98, 86) 1px 2px 8px; border-radius: 50%"
             />
           </a>
-          <span class="text-color ml-3 font-size-17 custom-font">
+          <span class="text-color ml-3 font-size-15 custom-font font-weight-bold">
                     {{ $t('navbar.main_title') }}
                 </span>
           <b-dropdown variant="white" right toggle-class="header-item" class="languageBar">
@@ -200,7 +200,7 @@ export default {
           </b-dropdown>
         </div>
 
-        <div class="ml-4">
+        <div class="ml-4 mb-4">
           <h4 class="font-weight-bold my-4 custom-font" style="color: #226358;">
             {{ $t('court_online.require_txt') }}
           </h4>
@@ -230,7 +230,7 @@ export default {
           </button>
         </div>
 
-        <div class="container-box my-5">
+        <div class="container-box my-5 ml-4">
           <div class="row text-center">
             <div class="col-md-6 mb-4">
               <div class="info-box">
@@ -250,13 +250,13 @@ export default {
             </div>
           </div>
 
-          <div class="contact-info custom-font">
+          <div class="contact-info custom-font mt-4">
             <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg" alt="">{{ $t('sud_xabarnoma.telegram') }}</p>
             <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt=""> {{ $t('sud_xabarnoma.support') }}: <a  class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a  class="custom-font" href="tel:1159">(1159)</a></p>
           </div>
 
           <footer class="mt-5">
-            <p class="custom-font">{{ $t('sud_xabarnoma.qomita') }}</p>
+            <p class="custom-font mb-0">{{ $t('sud_xabarnoma.qomita') }}</p>
             <p class="custom-font">2024</p>
           </footer>
         </div>
