@@ -7,6 +7,8 @@ import Toast from "vue-toastification";
 export default {
   data() {
     return {
+      showText:false,
+      showTextMazmun:false,
       controlWorkNumber: null,
       loading: false,
       searchingModal: false,
@@ -57,7 +59,13 @@ export default {
     },
     activeInputValue() {
       return this[this.activeInput];
-    }
+    },
+    lenghtOfCaseBrake(){
+      return this.getUserDatas.step1?.resultsCaseReviews.length
+    },
+    getLocale() {
+      return localStorage.getItem('locale') ? localStorage.getItem('locale') : 'uzCyrillic'
+    },
   },
   methods: {
     ...mapActions(['setCount']),
@@ -259,160 +267,229 @@ export default {
         </template>
       </b-modal>
 
+      <span class="loader" v-if="loading"></span>
 
-      <div class="mt-4 w-75 mx-auto p-3" style="background-color: #F3F5FA; border-radius: 8px" v-for="(item, index) in getUserDatas" :key="index">
-        <b-row class="justify-content-center">
-          <b-col class="text-center">
-            <h2 class="text-white" style="background-color: #226358; border-radius: 8px" v-if="item && item.step2_all && item.step2_all.resultDecisionNewDto">
-              {{
-                getName({
-                  nameLt: item.step2_all.resultDecisionNewDto.nameLt,
-                  nameUz: item.step2_all.resultDecisionNewDto.nameRu,
-                  nameRu: item.step2_all.resultDecisionNewDto.nameUz,
-                })
-              }}
-            </h2>
-          </b-col>
-          <b-col>
-          <h2 class="text-primary">Иш рақами: {{ item && item.step2_all && item.step2_all.numberOfWork }}</h2>
-          <hr>
-          </b-col>
+      <div class="mt-4 w-50 mx-auto p-2 mb-5" style="border: 1px solid #439b8e; border-radius: 5px" v-for="(item, index) in getUserDatas" :key="index">
+        <b-row class="ml-1">
+            <span class="text-white p-2 font-weight-bold font-size-15" style="background-color: #226358; border-radius: 5px; width: 345px">
+              {{ $t('online_kuzatuv.workNumber') }}: {{ item && item.step2_all && item.step2_all.numberOfWork }}
+            </span>
         </b-row>
-        <div class="justify-content-center ml-3 mr-3">
-          <b-row>
+        <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
+          <b-col class="p-2 ml-0" style="background-color: #226358; border-radius: 5px; width: 340px">
+            <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.qozgatilgan_infos') }}</span>
+          </b-col>
+          <b-row class="mt-3">
             <b-col>
-              <span>Ҳудуд:</span>
+              <span style="color:#839690;">{{ $t('online_kuzatuv.subject_name') }}</span>
             </b-col>
             <b-col>
-              <span>Суд номи:</span>
-            </b-col>
-            <b-col>
-              <span>Судья:</span>
+              <span style="color:#839690;">{{ $t('online_kuzatuv.qozgatish_asosi') }}</span>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <p>
-                {{
-                  getName({
-                    nameLt: item.regionNameLt,
-                    nameUz: item.regionNameRu,
-                    nameRu: item.regionNameUz,
-                  })
-                }}
+              <p class="detailText">
+                {{item.step1.nameSubject}}
+<!--                {{-->
+<!--                  getName({-->
+<!--                    nameLt: item.regionNameLt,-->
+<!--                    nameUz: item.regionNameRu,-->
+<!--                    nameRu: item.regionNameUz,-->
+<!--                  })-->
+<!--                }}-->
               </p>
             </b-col>
             <b-col>
-              <p> Фуқаролик ишлари бўйича Учқўрғон туманлараро суди</p>
-            </b-col>
-            <b-col>
-              <p>КОЗИЕВ ИСЛОМЖОН ИСМОИЛОВИЧ</p>
+              <p class="detailText"> {{item.step1.otherBasisName}}</p>
             </b-col>
           </b-row>
 
           <b-row class="mt-4">
             <b-col>
-              <span>Рўйхатга олиш санаси:</span>
+              <span style="color:#839690;">{{ $t('online_kuzatuv.qozgatilgan_soha') }}</span>
             </b-col>
             <b-col>
-              <b-row>
-                <b-col>
-                  <span class="title">Кўриб чиқиш санаси:</span>
-                </b-col>
-                <b-col>
-                  <span class="title">Вақти:</span>
-                </b-col>
-              </b-row>
-            </b-col>
-            <b-col>
-              <span>Натижа:</span>
+                  <span class="title" style="color:#839690;">{{ $t('online_kuzatuv.register_date') }}</span>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <p>{{item.step1.createDate}}</p>
-            </b-col>
-            <b-col>
-              <b-row>
-                <b-col>
-                  <p class="value">{{item && item.step2_all && item.step2_all.seeWorkDate}}</p>
-                </b-col>
-                <b-col>
-                  <p class="value">{{item && item.step2_all && item.step2_all.timeEnd}}</p>
-                </b-col>
-              </b-row>
-            </b-col>
-            <b-col>
-              <p v-if="item && item.step2_all && item.step2_all.resultDecisionNewDto">
+              <p class="detailText">
                 {{
                   getName({
-                    nameLt: item.step2_all.resultDecisionNewDto.nameLt,
-                    nameUz: item.step2_all.resultDecisionNewDto.nameRu,
-                    nameRu: item.step2_all.resultDecisionNewDto.nameUz,
+                    nameLt: item.step1.fieldWorkDto.nameLt,
+                    nameUz: item.step1.fieldWorkDto.nameRu,
+                    nameRu: item.step1.fieldWorkDto.nameUz,
                   })
                 }}
               </p>
             </b-col>
+            <b-col>
+              <span class="detailText">
+                {{ item.step1?.regstrationDate ? item.step1.regstrationDate : '' }}
+              </span>
+            </b-col>
+
+<!--            <b-col>-->
+<!--              <p v-if="item && item.step2_all && item.step2_all.resultDecisionNewDto">-->
+<!--                {{-->
+<!--                  getName({-->
+<!--                    nameLt: item.step2_all.resultDecisionNewDto.nameLt,-->
+<!--                    nameUz: item.step2_all.resultDecisionNewDto.nameRu,-->
+<!--                    nameRu: item.step2_all.resultDecisionNewDto.nameUz,-->
+<!--                  })-->
+<!--                }}-->
+<!--              </p>-->
+<!--            </b-col>-->
           </b-row>
+          <b-row>
+            <b-col>
+              <span class="title" style="color:#839690;">{{ $t('online_kuzatuv.buzilgan_hujjatlar') }}</span>
+            </b-col>
+            <b-col>
+              <span class="title" style="color:#839690;">{{ $t('online_kuzatuv.aniqlangan_holat') }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
 
+              <p class="mb-2"><b class="detailText">
+                            <span v-if="!showText">
+                           <span v-if="item.step1?.resultsCaseReviews.length > 0">
+                             <span v-if="getLocale == 'uz'">{{item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameLt.split(' ').slice(0, 5).join(' ')}}</span>
+                             <span v-if="getLocale == 'uzCyrillic'">{{item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameUz.split(' ').slice(0, 5).join(' ')}}</span>
+                             <span v-if="getLocale == 'ru'">{{item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameRu.split(' ').slice(0, 5).join(' ')}}</span>
+                           </span>
+                            </span>
+                <ol v-if="showText">
+                  <li v-for="(sItem, sIndex) in item.step1?.resultsCaseReviews" :key="sIndex">
+                    {{
+                      getName({
+                        nameLt: sItem.brokenDocsDto.nameLt,
+                        nameUz: sItem.brokenDocsDto.nameUz,
+                        nameRu: sItem.brokenDocsDto.nameRu,
+                      })
+                    }}
+                  </li>
+                </ol>
+                <span @click="showText = !showText" style="color:#f39138; cursor: pointer;">
+                              <span v-if="!showText"> ...{{$t('actions.details')}} ({{item.step1?.resultsCaseReviews.length}})</span>
+                              <span v-else> ...{{$t('actions.close')}}</span>
+                  <!--                              {{ !showText ? ($t('actions.details'))(lenghtOfCaseBrake) : $t('actions.hide')}}-->
+                            </span>
+              </b></p>
+              <!--              <b-row>-->
+              <!--                <b-col>-->
+              <!--                  <p class="value">{{item && item.step2_all && item.step2_all.seeWorkDate}}</p>-->
+              <!--                </b-col>-->
+              <!--                <b-col>-->
+              <!--                  <p class="value">{{item && item.step2_all && item.step2_all.timeEnd}}</p>-->
+              <!--                </b-col>-->
+              <!--              </b-row>-->
+            </b-col>
+            <b-col>
+              <p class="mb-2"><b class="detailText">
+                            <span v-if="item.step1?.definedCaseContent?.split(' ').length < 5">
+                                {{ item.step1?.definedCaseContent ? item.step1.definedCaseContent : '' }}
+                            </span>
+                <span v-else>
+                               <span v-if="!showTextMazmun">
+                                <span v-if="item.step1?.definedCaseContent">
+                                <span>{{
+                                    item.step1?.definedCaseContent ? item.step1.definedCaseContent.split(' ').slice(0, 5).join(' ') : ''
+                                  }}</span>
+                                </span>
+                            </span>
+                               <span v-if="showTextMazmun">
+                              {{ item.step1?.definedCaseContent ? item.step1.definedCaseContent : '' }}
+                            </span>
+                            <span @click="showTextMazmun = !showTextMazmun" style="color:#f39138; cursor: pointer;">
+                              <span v-if="!showTextMazmun"> ...{{ $t('actions.details') }}</span>
+                              <span v-else> ...{{ $t('actions.close') }}</span>
+                            </span>
+                            </span>
+              </b></p>
+            </b-col>
+          </b-row>
+        </div>
 
-          <div class="mt-4 p-4" style="background-color: #DCE1EB; border-radius: 8px">
-            <b-row>
-              <b-col>
-                <span>Даъвогар: </span>
-              </b-col>
-              <b-col>
-                <span>Манфаатидан чиққан шахс: </span>
-              </b-col>
-              <b-col>
-                <span>Жавобгар: </span>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col>
-                <p>XOJAXMEDOVA DILNOZA ORIPJONOVNA</p>
-              </b-col>
-              <b-col>
-                <p>></p>
-              </b-col>
-              <b-col>
-                <p>URSUNOV FAYZULLO MAHMUDJONOVICH</p>
-              </b-col>
-            </b-row>
+        <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
+          <b-col class="p-2 ml-0" style="background-color: #226358; border-radius: 5px; width: 340px">
+            <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.seeWork_info') }}</span>
+          </b-col>
+          <b-row class="mt-3">
+            <b-col>
+              <span style="color:#839690;">{{ $t('online_kuzatuv.chairmon') }}</span>
+            </b-col>
+            <b-col>
+              <span style="color:#839690;">{{ $t('online_kuzatuv.seeWorkdate') }}</span>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <p class="detailText">
+                {{item.step2_all.chairmanCommission}}
+              </p>
+            </b-col>
+            <b-col>
+                  <span class="value detailText">{{item && item.step2_all && item.step2_all.seeWorkDate}}</span>
+                  <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd}}</span>
+            </b-col>
+          </b-row>
+        </div>
 
-            <b-row>
-              <b-col cols="8">
-                <span>Иш туркуми: </span>
-              </b-col>
-              <b-col>
-                <span>Қўшимча иш туркуми: </span>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="8">
-                <p>
+        <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
+          <b-col class="p-2 ml-0" style="background-color: #226358; border-radius: 5px; width: 340px">
+            <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.final_result') }}</span>
+          </b-col>
+          <b-row>
+            <!-- Left Column with Two Boxes -->
+            <b-col>
+              <!-- First Box: Qaror mazmuni -->
+              <div class="left-box my-3">
+                <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.court_mind') }}</span>
+                <p v-if="item && item.step2_all && item.step2_all.resultDecisionNewDto.code === 'QANOATLANTIRILDI'" style="color:#f39138;" class="detailText">
                   {{
                     getName({
-                      nameLt: item && item.step2 && item.step2[0] && item.step2[0].terminationWorkDto && item.step2[0].terminationWorkDto.nameLt ? item && item.step2 && item.step2[0] && item.step2[0].terminationWorkDto && item.step2[0].terminationWorkDto.nameLt : '---',
-                      nameUz: item && item.step2 && item.step2[0] && item.step2[0].terminationWorkDto && item.step2[0].terminationWorkDto.nameUz ? item && item.step2 && item.step2[0] && item.step2[0].terminationWorkDto && item.step2[0].terminationWorkDto.nameUz : '---',
-                      nameRu: item && item.step2 && item.step2[0] && item.step2[0].terminationWorkDto && item.step2[0].terminationWorkDto.nameRu ? item && item.step2 && item.step2[0] && item.step2[0].terminationWorkDto && item.step2[0].terminationWorkDto.nameRu : '---',
+                      nameLt: item.step2_all.resultDecision.nameLt,
+                      nameUz: item.step2_all.resultDecision.nameRu,
+                      nameRu: item.step2_all.resultDecision.nameUz,
                     })
                   }}
                 </p>
-              </b-col>
-              <b-col>
-                <p v-if="item && item.step1 && item.step1.fieldWorkDto">
+                <p v-else style="color:#f39138;">
                   {{
-                  getName({
-                    nameLt: item.step1.fieldWorkDto.nameLt ? item.step1.fieldWorkDto.nameLt : '---',
-                    nameUz: item.step1.fieldWorkDto.nameUz ? item.step1.fieldWorkDto.nameUz : '---',
-                    nameRu: item.step1.fieldWorkDto.nameRu ? item.step1.fieldWorkDto.nameRu : '---'
-                  })
-                      }}
+                    getName({
+                      nameLt: item.step2_all.resultDecisionNewDto.nameLt,
+                      nameUz: item.step2_all.resultDecisionNewDto.nameRu,
+                      nameRu: item.step2_all.resultDecisionNewDto.nameUz,
+                    })
+                  }}
                 </p>
-              </b-col>
-            </b-row>
-          </div>
+              </div>
+              <!-- Second Box: Qaror sanasi -->
+              <div class="left-box my-3">
+                <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.court_date') }}</span>
+                <div>
+                <span class="value detailText">{{item && item.step2_all && item.step2_all.decisionDate}}</span>
+                <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd}}</span>
+                </div>
+              </div>
+            </b-col>
+
+            <!-- Right Column with Larger Box -->
+            <b-col>
+              <div class="my-3">
+                <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.short_mind') }}</span>
+                <p class="detailText">
+                  {{
+                    item.step2_all?.decisionOfContent ? editingItem.step2_all.decisionOfContent : '---'
+                  }}
+                </p>
+              </div>
+            </b-col>
+          </b-row>
         </div>
       </div>
     </div>
@@ -605,5 +682,43 @@ export default {
 p{
   font-size: 16px;
   color: #2B675B;
+}
+.loader {
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  background: currentColor;
+  color: #2c665a;
+  box-sizing: border-box;
+  animation: animloader 0.3s 0.3s linear infinite alternate;
+}
+
+.loader::after, .loader::before {
+  content: '';
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  background: currentColor;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  box-sizing: border-box;
+  animation: animloader 0.3s  0.45s  linear infinite alternate;
+}
+.loader::before {
+  left: -20px;
+  animation-delay: 0s;
+}
+.detailText {
+  color: #2b6c58;
+  font-size: 15px;
+}
+@keyframes animloader {
+  0%   { height: 48px}
+  100% { height: 4px}
 }
 </style>
