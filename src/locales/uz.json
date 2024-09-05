@@ -4593,7 +4593,22 @@
     "require_txt": "Maxsus komissiya tomonidan qo'zg'atilgan ishlar holatini online kuzatish uchun ish raqami, STIR yoki JSH SHIR raqamingizni kiriting",
     "work_number_placeholder": "Ish raqamini kiriting",
     "take_court_btn": "Tekshirish",
-    "errorFeedback": "Ish raqamini to`g`ri kiriting ( ' - ' , ' / ' )"
+    "errorFeedback": "Ish raqamini to`g`ri kiriting ( ' - ' , ' / ' )",
+    "workNumber": "Ish raqami",
+    "qozgatilgan_infos": "Qo'zg'atilgan ish ma'lumotlari",
+    "subject_name": "Subyekt nomi",
+    "qozgatish_asosi": "Ish qo'zg'atish asosi",
+    "qozgatilgan_soha": "Ish qo'zg'atilgan soha",
+    "buzilgan_hujjatlar": "Buzilgan holat hujjatlari",
+    "aniqlangan_holat": "Aniqlangan holat mazmuni",
+    "register_date": "Ro'yxatga olingan sana",
+    "seeWork_info": "Ishni ko'rib chiqish",
+    "chairmon": "Komissiya raisi",
+    "seeWorkdate": "Ish ko'ril(adi)gan sana",
+    "final_result": "Yakuniy natija",
+    "court_mind": "Qaror mazmuni",
+    "short_mind": "Qisqacha mazmuni",
+    "court_date": "Qaror sanasi"
   },
   "loader": {
     "waiting": "Iltimos kuting!",
