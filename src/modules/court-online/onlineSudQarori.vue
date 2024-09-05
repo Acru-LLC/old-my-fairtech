@@ -230,6 +230,7 @@ export default {
           </button>
         </div>
 
+<!--        <span class="loader" v-if="loading"></span>-->
         <div class="container-box my-5 ml-4">
           <div class="row text-center">
             <div class="col-md-6 mb-4">
@@ -608,5 +609,40 @@ footer p {
   color: #2B675B !important;
   font-size: 17px;
   width: 48%;
+}
+.loader {
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  background: currentColor;
+  color: #2c665a;
+  box-sizing: border-box;
+  animation: animloader 0.3s 0.3s linear infinite alternate;
+}
+
+.loader::after, .loader::before {
+  content: '';
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  background: currentColor;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  box-sizing: border-box;
+  animation: animloader 0.3s  0.45s  linear infinite alternate;
+}
+.loader::before {
+  left: -20px;
+  animation-delay: 0s;
+}
+
+@keyframes animloader {
+  0%   { height: 48px}
+  100% { height: 4px}
 }
 </style>
