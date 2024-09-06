@@ -56,12 +56,12 @@
         <b-col cols="6"></b-col>
         <b-col cols="3" class="d-flex justify-content-end">
           <BaseDatePickerWithValidation v-model="today" only-form-element not-required
-                                        format="YYYY-MM-DD"/>
+                                        format="DD-MM-YYYY"/>
           <b-button variant="primary" class="p-2 ml-1 d-flex align-items-center" style="height: 34px" @click="sendRequest(selectedRegion.value)"><span>{{$t('actions.search')}}</span></b-button>
         </b-col>
       </b-row>
       <b-row class="mb-3 d-flex justify-content-center">
-        <p v-if="selectedRegionTitle !== $t('court_table_list.region.qomita')"><b class="text-color">{{$t('sud_xabarnoma.qomita')}} {{ selectedRegionTitle }} </b>{{$t('court_table_list.region.first_part_text')}} <b class="text-color">{{ formattedDate }}</b>
+        <p v-if="selectedRegionTitle !== $t('court_table_list.region.qomita')"><b class="text-color">{{$t('sud_xabarnoma.qomita')}} {{ selectedRegionTitle }} </b>{{$t('court_table_list.region.first_part_text')}} <b class="text-color">{{ today }}</b>
           {{ $t('court_table_list.region.second_part_text') }}</p>
 
         <p v-else><b class="text-color"> {{ $t('court_table_list.region.only_qomita') }}</b>{{$t('court_table_list.region.first_part_for_qomita')}} <b class="text-color">{{ formattedDate }}</b>
@@ -228,16 +228,17 @@ export default {
     },
     sendRequest(data) {
       this.loading = true;
+      this.cases = [];
       // const today = new Date();
       // const formattedDate = today.toISOString().split('T')[0];
       let check = {
         soato: data,
-        date: this.formattedDate || this.today // formattedDate  // 2023-11-02
+        date: this.today // formattedDate  // 2023-11-02
       };
       this.searchLoader = true;
       return CheckService.courtTable(check)
           .then((result) => {
-            this.cases = result.data;
+            this.cases = result.data || [];
             // this.cases = result.data.cases;
             this.activeBox = data;
             this.tableVisible = true;
@@ -271,11 +272,19 @@ export default {
     },
     goBack() {
       this.tableVisible = false;
+      this.cases = [];
+      this.today = '';
       this.selectedRegion = null;
     }
   },
   mounted() {
-    this.today = new Date().toISOString().split('T')[0]; // Set today to the current date
+    // this.today = new Date().toISOString().split('T')[0]; // Set today to the current date
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');   // Get day and pad with zero if needed
+    const month = String(today.getMonth() + 1).padStart(2, '0');  // Months are zero-indexed, so add 1
+    const year = today.getFullYear();
+
+    this.today = `${day}-${month}-${year}`;
     this.updateFormattedDate();
   },
   watch: {

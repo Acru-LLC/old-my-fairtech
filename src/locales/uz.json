@@ -4540,7 +4540,7 @@
     "card_subtitle": "Maxsus komissiya tomonidan ko‘rib chiqilayotgan ishlarning sanasi va vaqti haqida onlayn xabardor bo‘lish",
     "take_court_btn": "Sud qarorini olish",
     "table_columns": {
-      "subyekt": "Ish qo‘zg‘atgan subyekt",
+      "subyekt": "Ish qo‘zg‘atilgan subyekt",
       "soha": "Ish qo‘zg‘atilgan soha",
       "docs": "Buzilgan qonun hujjatlari",
       "work_number": "Ish raqami",
@@ -4572,7 +4572,7 @@
       "first_part_for_qomita": "sining maxsus komissiyasi tomonidan",
       "second_part_text": "yilga tayinlangan ishlar ro‘yxati"
     },
-    "empty_modal": "Belgilangan sana bo‘yicha sud majlisiga tayinlangan ishlar mavjud emas!"
+    "empty_modal": "Belgilangan sana bo‘yicha komissiya majlisiga tayinlangan ishlar mavjud emas!"
   },
   "telegram_menu_title": "Raqobat qo'mitasining ''TELEGRAM BOT'' dasturi",
   "telegram_menu_subtitle": "Foydalanuvchilar tomonidan raqobat sohasi yoki iste'molchilar huquqlarinihimoya qilish faoliyati yuzasidan kiritilgan savol va murojaatlarga qisqa fursatda tezkor javob olish",
