@@ -199,6 +199,7 @@ export default {
     getData() {
       this.loader = true
       console.log(this.loader)
+      console.log({id: this.infoData.id, soato: this.infoData.soato, type: this.type})
       Service.gasStationInfoData({id: this.infoData.id, soato: this.infoData.soato, type: this.type})
           .then(async res => {
             this.resData = res.data

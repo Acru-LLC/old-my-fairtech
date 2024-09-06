@@ -43,8 +43,19 @@ export default {
         return res;
     },
     gasStationInfoData: async function (obj, withLoader = false) {
-        console.log(obj)
         let res = await ApiService.post(`/gas-station/get-station-price-by-id/${obj.id ? obj.id : ''}?soato=${obj.soato ? obj.soato : ''}&type=${obj.type ? obj.type : ''}`, withLoader);
+        return res;
+    },
+    gasStationMaxListData: async function (obj, body, withLoader = false) {
+        let myPayload = Object.assign({}, body)
+        myPayload.page -= 1
+        let res = await ApiService.post(`/gas-station/region-station_prices-max?soato=${obj.soato ? obj.soato : ''}&type=${obj.type ? obj.type : ''}`, myPayload, withLoader);
+        return res;
+    },
+    gasStationMinListData: async function (obj, body, withLoader = false) {
+        let myPayload = Object.assign({}, body)
+        myPayload.page -= 1
+        let res = await ApiService.post(`/gas-station/region-station_prices-min?soato=${obj.soato ? obj.soato : ''}&type=${obj.type ? obj.type : ''}`, myPayload, withLoader);
         return res;
     },
 

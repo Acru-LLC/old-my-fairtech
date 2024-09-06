@@ -205,7 +205,7 @@ export default {
 }
 
 .fil0 {
-  fill: none
+  fill: #FFFFFF
 }
 
 </style>

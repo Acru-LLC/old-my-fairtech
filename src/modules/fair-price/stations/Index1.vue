@@ -1089,11 +1089,29 @@
         class="custom-width-modal"
         v-model="isModalMap"
         :title="titleText"
+        hide-header
         hide-footer
-        size="xl"
         :no-close-on-backdrop="true"
     >
-
+      <b-row>
+        <b-col cols="10">
+         <span style="background: #2b675b; color: #FFFFFF; font-size: 20px; padding: 3px 20px;  border-radius: 5px; width: 100% !important;">
+            {{ titleText1 }}{{$t('stations.text1')}} <span style="text-transform: lowercase">{{ titleText2 }}</span>  {{$t('stations.text2')}}
+         </span>
+        </b-col>
+        <b-col cols="2">
+          <i @click="isModalMap = false"
+             style="float: right !important; justify-content: right; cursor: pointer; color: #2b675b; font-size: 26px"
+             class="mdi mdi-close-circle-outline"></i>
+          <!--          <b-button-->
+          <!--              size="sm"-->
+          <!--              variant="danger"-->
+          <!--              @click="isModalMap = false"-->
+          <!--          >-->
+          <!--            {{ $t('actions.cancel') }}-->
+          <!--          </b-button>-->
+        </b-col>
+      </b-row>
       <mapStations :type="istype" :soato="isSoato"></mapStations>
 
       <template #modal-footer>
@@ -1106,6 +1124,7 @@
         </b-button>
       </template>
     </b-modal>
+
   </div>
 </template>
 
@@ -1819,12 +1838,15 @@ export default {
     }
   },
   methods: {
+    selectedStationsBtn(item) {
+      this.selectedStations = item
+    },
     async selectedStationsTypeBtn(item) {
       this.istype = item.type
       this.isSoato = item.soato
 
-      this.titleText1 = this.$t('activity.rateInfo.control.placeName') + ": " + await this.getRegionName(item.soato) + "  |  "
-      this.titleText2 = this.$t('stations.name') + ": " + await this.getTypeName(item.type)
+      this.titleText1 = await this.getRegionName(item.soato)
+      this.titleText2 = await this.getTypeName(item.type)
 
       this.titleText = this.titleText1 + ' ' + this.titleText2
 
@@ -2505,10 +2527,18 @@ tbody tr:nth-child(even) {
   -ms-flex-direction: column;
   flex-direction: column;
   pointer-events: auto;
-  background-color: #DADADA;
   background-clip: padding-box;
   border: 1px solid #f6f6f6;
   border-radius: 0.4rem;
   outline: 0;
+
+}
+
+
+::v-deep .modal-dialog {
+  width: 80vw; /* O'zingiz xohlagan kenglik */
+  max-width: none; /* Standart cheklovni olib tashlash uchun */
+
+
 }
 </style>

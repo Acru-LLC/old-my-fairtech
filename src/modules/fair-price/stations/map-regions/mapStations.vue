@@ -1,58 +1,176 @@
 <template>
   <div>
-    <div>
-      <khorezm_b :type="type" :resData="resData" v-if="soato=='1733' && type=='BENZIN'"></khorezm_b>
-      <khorezm_m :type="type" :resData="resData" v-else-if="soato=='1733' && type=='METAN'"></khorezm_m>
-      <khorezm_p :type="type" :resData="resData" v-else-if="soato=='1733' && type=='PROPAN'"></khorezm_p>
+    <b-row>
+      <b-col cols="8">
+        <div class="mt-2">
+          <khorezm_b :type="type" :resData="resData" v-if="soato=='1733' && type=='BENZIN'"></khorezm_b>
+          <khorezm_m :type="type" :resData="resData" v-else-if="soato=='1733' && type=='METAN'"></khorezm_m>
+          <khorezm_p :type="type" :resData="resData" v-else-if="soato=='1733' && type=='PROPAN'"></khorezm_p>
 
-      <navoi_b :type="type" :resData="resData" v-else-if="soato=='1712' && type=='BENZIN'"></navoi_b>
-      <navoi_m :type="type" :resData="resData" v-else-if="soato=='1712' && type=='METAN'"></navoi_m>
-      <navoi_p :type="type" :resData="resData" v-else-if="soato=='1712' && type=='PROPAN'"></navoi_p>
+          <navoi_b :type="type" :resData="resData" v-else-if="soato=='1712' && type=='BENZIN'"></navoi_b>
+          <navoi_m :type="type" :resData="resData" v-else-if="soato=='1712' && type=='METAN'"></navoi_m>
+          <navoi_p :type="type" :resData="resData" v-else-if="soato=='1712' && type=='PROPAN'"></navoi_p>
 
-      <bukhara_b :type="type" :resData="resData" v-else-if="soato=='1706' && type=='BENZIN'"></bukhara_b>
-      <bukhara_m :type="type" :resData="resData" v-else-if="soato=='1706' && type=='METAN'"></bukhara_m>
-      <bukhara_p :type="type" :resData="resData" v-else-if="soato=='1706' && type=='PROPAN'"></bukhara_p>
+          <bukhara_b :type="type" :resData="resData" v-else-if="soato=='1706' && type=='BENZIN'"></bukhara_b>
+          <bukhara_m :type="type" :resData="resData" v-else-if="soato=='1706' && type=='METAN'"></bukhara_m>
+          <bukhara_p :type="type" :resData="resData" v-else-if="soato=='1706' && type=='PROPAN'"></bukhara_p>
 
-      <namangan_b :type="type" :resData="resData" v-else-if="soato=='1714' && type=='BENZIN'"></namangan_b>
-      <namangan_m :type="type" :resData="resData" v-else-if="soato=='1714' && type=='METAN'"></namangan_m>
-      <namangan_p :type="type" :resData="resData" v-else-if="soato=='1714' && type=='PROPAN'"></namangan_p>
+          <namangan_b :type="type" :resData="resData" v-else-if="soato=='1714' && type=='BENZIN'"></namangan_b>
+          <namangan_m :type="type" :resData="resData" v-else-if="soato=='1714' && type=='METAN'"></namangan_m>
+          <namangan_p :type="type" :resData="resData" v-else-if="soato=='1714' && type=='PROPAN'"></namangan_p>
 
-      <andijan_b :type="type" :resData="resData" v-else-if="soato=='1703' && type=='BENZIN'"></andijan_b>
-      <andijan_m :type="type" :resData="resData" v-else-if="soato=='1703' && type=='METAN'"></andijan_m>
-      <andijan_p :type="type" :resData="resData" v-else-if="soato=='1703' && type=='PROPAN'"></andijan_p>
+          <andijan_b :type="type" :resData="resData" v-else-if="soato=='1703' && type=='BENZIN'"></andijan_b>
+          <andijan_m :type="type" :resData="resData" v-else-if="soato=='1703' && type=='METAN'"></andijan_m>
+          <andijan_p :type="type" :resData="resData" v-else-if="soato=='1703' && type=='PROPAN'"></andijan_p>
 
-      <fergana_b :type="type" :resData="resData" v-else-if="soato=='1730' && type=='BENZIN'"></fergana_b>
-      <fergana_m :type="type" :resData="resData" v-else-if="soato=='1730' && type=='METAN'"></fergana_m>
-      <fergana_p :type="type" :resData="resData" v-else-if="soato=='1730' && type=='PROPAN'"></fergana_p>
+          <fergana_b :type="type" :resData="resData" v-else-if="soato=='1730' && type=='BENZIN'"></fergana_b>
+          <fergana_m :type="type" :resData="resData" v-else-if="soato=='1730' && type=='METAN'"></fergana_m>
+          <fergana_p :type="type" :resData="resData" v-else-if="soato=='1730' && type=='PROPAN'"></fergana_p>
 
-      <qashqadaryo_b :type="type" :resData="resData" v-else-if="soato=='1710' && type=='BENZIN'"></qashqadaryo_b>
-      <qashqadaryo_m :type="type" :resData="resData" v-else-if="soato=='1710' && type=='METAN'"></qashqadaryo_m>
-      <qashqadaryo_p :type="type" :resData="resData" v-else-if="soato=='1710' && type=='PROPAN'"></qashqadaryo_p>
+          <qashqadaryo_b :type="type" :resData="resData" v-else-if="soato=='1710' && type=='BENZIN'"></qashqadaryo_b>
+          <qashqadaryo_m :type="type" :resData="resData" v-else-if="soato=='1710' && type=='METAN'"></qashqadaryo_m>
+          <qashqadaryo_p :type="type" :resData="resData" v-else-if="soato=='1710' && type=='PROPAN'"></qashqadaryo_p>
 
-      <samarqand_b :type="type" :resData="resData" v-else-if="soato=='1718' && type=='BENZIN'"></samarqand_b>
-      <samarqand_m :type="type" :resData="resData" v-else-if="soato=='1718' && type=='METAN'"></samarqand_m>
-      <samarqand_p :type="type" :resData="resData" v-else-if="soato=='1718' && type=='PROPAN'"></samarqand_p>
+          <samarqand_b :type="type" :resData="resData" v-else-if="soato=='1718' && type=='BENZIN'"></samarqand_b>
+          <samarqand_m :type="type" :resData="resData" v-else-if="soato=='1718' && type=='METAN'"></samarqand_m>
+          <samarqand_p :type="type" :resData="resData" v-else-if="soato=='1718' && type=='PROPAN'"></samarqand_p>
 
-      <sirdaryo_b :type="type" :resData="resData" v-else-if="soato=='1724' && type=='BENZIN'"></sirdaryo_b>
-      <sirdaryo_m :type="type" :resData="resData" v-else-if="soato=='1724' && type=='METAN'"></sirdaryo_m>
-      <sirdaryo_p :type="type" :resData="resData" v-else-if="soato=='1724' && type=='PROPAN'"></sirdaryo_p>
+          <sirdaryo_b :type="type" :resData="resData" v-else-if="soato=='1724' && type=='BENZIN'"></sirdaryo_b>
+          <sirdaryo_m :type="type" :resData="resData" v-else-if="soato=='1724' && type=='METAN'"></sirdaryo_m>
+          <sirdaryo_p :type="type" :resData="resData" v-else-if="soato=='1724' && type=='PROPAN'"></sirdaryo_p>
 
-      <surxondaryo_b :type="type" :resData="resData" v-else-if="soato=='1722' && type=='BENZIN'"></surxondaryo_b>
-      <surxondaryo_m :type="type" :resData="resData" v-else-if="soato=='1722' && type=='METAN'"></surxondaryo_m>
-      <surxondaryo_p :type="type" :resData="resData" v-else-if="soato=='1722' && type=='PROPAN'"></surxondaryo_p>
+          <surxondaryo_b :type="type" :resData="resData" v-else-if="soato=='1722' && type=='BENZIN'"></surxondaryo_b>
+          <surxondaryo_m :type="type" :resData="resData" v-else-if="soato=='1722' && type=='METAN'"></surxondaryo_m>
+          <surxondaryo_p :type="type" :resData="resData" v-else-if="soato=='1722' && type=='PROPAN'"></surxondaryo_p>
 
-      <toshkent_b :type="type" :resData="resData" v-else-if="soato=='1726' && type=='BENZIN'"></toshkent_b>
-      <toshkent_m :type="type" :resData="resData" v-else-if="soato=='1726' && type=='METAN'"></toshkent_m>
-      <toshkent_p :type="type" :resData="resData" v-else-if="soato=='1726' && type=='PROPAN'"></toshkent_p>
+          <toshkent_b :type="type" :resData="resData" v-else-if="soato=='1726' && type=='BENZIN'"></toshkent_b>
+          <toshkent_m :type="type" :resData="resData" v-else-if="soato=='1726' && type=='METAN'"></toshkent_m>
+          <toshkent_p :type="type" :resData="resData" v-else-if="soato=='1726' && type=='PROPAN'"></toshkent_p>
 
-      <jizzax_b :type="type" :resData="resData" v-else-if="soato=='1708' && type=='BENZIN'"></jizzax_b>
-      <jizzax_m :type="type" :resData="resData" v-else-if="soato=='1708' && type=='METAN'"></jizzax_m>
-      <jizzax_p :type="type" :resData="resData" v-else-if="soato=='1708' && type=='PROPAN'"></jizzax_p>
+          <jizzax_b :type="type" :resData="resData" v-else-if="soato=='1708' && type=='BENZIN'"></jizzax_b>
+          <jizzax_m :type="type" :resData="resData" v-else-if="soato=='1708' && type=='METAN'"></jizzax_m>
+          <jizzax_p :type="type" :resData="resData" v-else-if="soato=='1708' && type=='PROPAN'"></jizzax_p>
 
-      <qoraqalpoq_b :type="type" :resData="resData" v-else-if="soato=='1735' && type=='BENZIN'"></qoraqalpoq_b>
-      <qoraqalpoq_m :type="type" :resData="resData" v-else-if="soato=='1735' && type=='METAN'"></qoraqalpoq_m>
-      <qoraqalpoq_p :type="type" :resData="resData" v-else-if="soato=='1735' && type=='PROPAN'"></qoraqalpoq_p>
-    </div>
+          <qoraqalpoq_b :type="type" :resData="resData" v-else-if="soato=='1735' && type=='BENZIN'"></qoraqalpoq_b>
+          <qoraqalpoq_m :type="type" :resData="resData" v-else-if="soato=='1735' && type=='METAN'"></qoraqalpoq_m>
+          <qoraqalpoq_p :type="type" :resData="resData" v-else-if="soato=='1735' && type=='PROPAN'"></qoraqalpoq_p>
+        </div>
+      </b-col>
+      <b-col cols="4">
+        <b-row style="
+  box-shadow: 0 4px 8px rgb(162, 217, 247);
+  border-radius: 3px;
+  border-left: 6px solid #2c675b;">
+          <span size="sm"
+                style="background: #2c675b; width: 50%; margin-left: 5px; border-radius: 3px; color: #FFFFFF; padding: 1px 10px">{{ $t('stations.min_cost') }}</span>
+
+          <div style="min-height: 19vw;max-height: 19vw;overflow-y: scroll;
+          padding: 0 !important; width: 100%;" class="table-container">
+            <table class="table text-center mt-1">
+              <tbody>
+              <div class="loaderBody" v-show="loaderMin">
+                <div class="loaderPosition">
+                  <div class="loader">
+                    <div class="blue dot"></div>
+                    <div class="green dot"></div>
+                    <div class="red dot"></div>
+                    <div class="orange dot"></div>
+                    <div class="logoColor dot"></div>
+                  </div>
+                  <div class="mt-3 text-center"><p style="font-size: 20px; font-weight: bold">{{
+                      $t('loader.waiting')
+                    }} <br>
+                    {{ $t('loader.downloading') }}</p></div>
+                </div>
+              </div>
+              </tbody>
+              <tbody>
+              <tr
+                  v-for="(item, index) in minData" :key="index"
+                  @click="selectedStationsBtn(item)"
+                  :style="item.id == selectedStations.id ? `background: #bed2e0`:``"
+                  style="cursor: pointer;">
+                <td style="font-size: 12px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                  {{ getTypeName(type) }}
+                </td>
+                <td style="font-size: 10px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                   <span
+                       style="border-left: 4px solid  #077863; width: 50px; background: #1FA38B;margin-right: 0; text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+                     {{formatNumber(Math.trunc(item.minPrice))}}
+                  </span>
+                </td>
+                <td style="font-size: 10px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                  {{ item.date }}
+                </td>
+                <td style="font-size: 10px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                  {{ item.station?.nameShort }}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </b-row>
+
+        <b-row class="mt-4" style="
+  box-shadow: 0 4px 8px rgb(162, 217, 247);
+  border-radius: 3px;
+  border-left: 6px solid #97052D;">
+          <span size="sm"
+                style="background: #97052D; width: 50%; margin-left: 5px; border-radius: 3px; color: #FFFFFF; padding: 1px 10px">{{ $t('stations.max_cost') }}</span>
+
+          <div style="min-height: 19vw; max-height: 19vw;overflow-y: scroll;
+          padding: 0 !important; width: 100%;" class="table-container">
+            <table class="table text-center mt-1">
+              <tbody>
+              <div class="loaderBody" v-show="loaderMax">
+                <div class="loaderPosition">
+                  <div class="loader">
+                    <div class="blue dot"></div>
+                    <div class="green dot"></div>
+                    <div class="red dot"></div>
+                    <div class="orange dot"></div>
+                    <div class="logoColor dot"></div>
+                  </div>
+                  <div class="mt-3 text-center"><p style="font-size: 20px; font-weight: bold">{{ $t('loader.waiting') }}
+                    <br>
+                    {{ $t('loader.downloading') }}</p></div>
+                </div>
+              </div>
+              </tbody>
+              <tbody>
+              <tr
+                  v-for="(item, index) in maxData" :key="index"
+                  @click="selectedStationsBtn(item)"
+                  :style="item.id == selectedStations.id ? `background: #bed2e0`:``"
+                  style="cursor: pointer;">
+                <td style="font-size: 12px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                  {{ getTypeName(type) }}
+                </td>
+                <td style="font-size: 10px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                   <span
+                       style="border-left: 4px solid  #97052D; width: 50px; background: #AD3958;margin-right: 0; text-align: center; color: #FFFFFF; font-weight: bold;
+                          font-size: 13px">
+                     {{formatNumber(Math.trunc(item.maxPrice))}}
+                  </span>
+                </td>
+                <td style="font-size: 10px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                  {{ item.date }}
+                </td>
+                <td style="font-size: 10px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
+                  {{ item.station?.nameShort }}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </b-row>
+
+      </b-col>
+    </b-row>
 
     <div class="loaderBody" v-show="loader">
       <div class="loaderPosition">
@@ -192,16 +310,36 @@ export default {
   data() {
     return {
       resData: [],
-      loader: false
+      maxData: [],
+      minData: [],
+      selectedStations: {},
+      loader: false,
+      loaderMin: false,
+      loaderMax: false,
     }
   },
+  computed: {},
   methods: {
+    selectedStationsBtn(item) {
+      this.selectedStations = item
+    },
+    getTypeName(type) {
+      let typeName = ''
+      if (type == 'BENZIN') {
+        typeName = this.$t('stations.benzin')
+      } else if (type == 'PROPAN') {
+        typeName = this.$t('stations.propan')
+      } else if (type == 'METAN') {
+        typeName = this.$t('stations.metan')
+      }
+      return typeName
+    },
     getData() {
       this.loader = true
-      console.log(this.loader)
       Service.gasStationListData({soato: this.soato, type: this.type})
           .then(async res => {
             this.resData = res.data
+            this.$emit("selectColor", v);
             this.loader = false
           })
           .catch(e => {
@@ -210,10 +348,44 @@ export default {
           .finally(() => {
             this.loader = false
           })
-    }
+    },
+    getMaxData() {
+      this.loaderMax = true
+      this.var_default_search_payload.itemsPerPage = 20
+      Service.gasStationMaxListData({soato: this.soato, type: this.type}, this.var_default_search_payload)
+          .then(async res => {
+            this.maxData = res.data.list
+            this.$emit("selectColor", v);
+            this.loaderMax = false
+          })
+          .catch(e => {
+            this.loaderMax = false
+          })
+          .finally(() => {
+            this.loaderMax = false
+          })
+    },
+    getMinData() {
+      this.loaderMin = true
+      this.var_default_search_payload.itemsPerPage = 20
+      Service.gasStationMinListData({soato: this.soato, type: this.type}, this.var_default_search_payload)
+          .then(async res => {
+            this.minData = res.data.list
+            this.$emit("selectColor", v);
+            this.loaderMin = false
+          })
+          .catch(e => {
+            this.loaderMin = false
+          })
+          .finally(() => {
+            this.loaderMin = false
+          })
+    },
   },
   async created() {
     await this.getData()
+    await this.getMaxData()
+    await this.getMinData()
   }
 }
 </script>
@@ -229,7 +401,7 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: rgba(239, 239, 239, 0.73);
+  background-color: rgb(255, 255, 255);
 
 }
 
@@ -364,6 +536,13 @@ export default {
     transform: scale(2);
     opacity: 0.1;
   }
+}
+table {
+  border-collapse: collapse; /* Chiziqlar orasidagi bo'shliqni olib tashlash */
+}
+
+table tr {
+  height: 10px; /* Satr balandligini kamaytirish */
 }
 </style>
 
