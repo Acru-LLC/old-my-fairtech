@@ -272,7 +272,7 @@ export default {
       <div class="mt-4 w-50 mx-auto p-2 mb-5" style="border: 1px solid #439b8e; border-radius: 5px" v-for="(item, index) in getUserDatas" :key="index">
         <b-row class="ml-1">
             <span class="text-white p-2 font-weight-bold font-size-15" style="background-color: #226358; border-radius: 5px; width: 345px">
-              {{ $t('online_kuzatuv.workNumber') }}: {{ item && item.step2_all && item.step2_all.numberOfWork }}
+              {{ $t('online_kuzatuv.workNumber') }}: {{ item && item.step2_all && item.step2_all.numberOfWork ? item.step2_all.numberOfWork : '---' }}
             </span>
         </b-row>
         <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
@@ -290,7 +290,7 @@ export default {
           <b-row>
             <b-col>
               <p class="detailText">
-                {{item.step1.nameSubject}}
+                {{item.step1.nameSubject ? item.step1.nameSubject : '---'}}
 <!--                {{-->
 <!--                  getName({-->
 <!--                    nameLt: item.regionNameLt,-->
@@ -301,7 +301,7 @@ export default {
               </p>
             </b-col>
             <b-col>
-              <p class="detailText"> {{item.step1.otherBasisName}}</p>
+              <p class="detailText"> {{item.step1.otherBasisName ? item.step1.otherBasisName : '---'}}</p>
             </b-col>
           </b-row>
 
@@ -321,7 +321,11 @@ export default {
                     nameLt: item.step1.fieldWorkDto.nameLt,
                     nameUz: item.step1.fieldWorkDto.nameRu,
                     nameRu: item.step1.fieldWorkDto.nameUz,
-                  })
+                  }) ? getName({
+                    nameLt: item.step1.fieldWorkDto.nameLt,
+                    nameUz: item.step1.fieldWorkDto.nameRu,
+                    nameRu: item.step1.fieldWorkDto.nameUz,
+                  }) : '---'
                 }}
               </p>
             </b-col>
@@ -429,7 +433,7 @@ export default {
           <b-row>
             <b-col>
               <p class="detailText">
-                {{item.step2_all.chairmanCommission}}
+                {{item.step2_all.chairmanCommission ? item.step2_all.chairmanCommission : '---'}}
               </p>
             </b-col>
             <b-col>
@@ -455,7 +459,12 @@ export default {
                       nameLt: item.step2_all.resultDecision.nameLt,
                       nameUz: item.step2_all.resultDecision.nameRu,
                       nameRu: item.step2_all.resultDecision.nameUz,
-                    })
+                    }) ?
+                    getName({
+                      nameLt: item.step2_all.resultDecision.nameLt,
+                      nameUz: item.step2_all.resultDecision.nameRu,
+                      nameRu: item.step2_all.resultDecision.nameUz,
+                    }) : '---'
                   }}
                 </p>
                 <p v-else style="color:#f39138;">
@@ -464,7 +473,12 @@ export default {
                       nameLt: item.step2_all.resultDecisionNewDto.nameLt,
                       nameUz: item.step2_all.resultDecisionNewDto.nameRu,
                       nameRu: item.step2_all.resultDecisionNewDto.nameUz,
-                    })
+                    }) ?
+                    getName({
+                      nameLt: item.step2_all.resultDecisionNewDto.nameLt,
+                      nameUz: item.step2_all.resultDecisionNewDto.nameRu,
+                      nameRu: item.step2_all.resultDecisionNewDto.nameUz,
+                    }) : '---'
                   }}
                 </p>
               </div>
