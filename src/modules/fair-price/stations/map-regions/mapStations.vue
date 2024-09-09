@@ -87,7 +87,6 @@
               <tbody>
               <tr
                   v-for="(item, index) in minData" :key="index"
-                  @click="selectedStationsBtn(item)"
                   :style="item.id == selectedStations.id ? `background: #bed2e0`:``"
                   style="cursor: pointer;">
                 <td style="font-size: 12px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
@@ -143,7 +142,6 @@
               <tbody>
               <tr
                   v-for="(item, index) in maxData" :key="index"
-                  @click="selectedStationsBtn(item)"
                   :style="item.id == selectedStations.id ? `background: #bed2e0`:``"
                   style="cursor: pointer;">
                 <td style="font-size: 12px; text-align: center; color: #2b675b; font-weight: bold; border-right: 2px solid #2b675b">
