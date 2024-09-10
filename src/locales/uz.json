@@ -4532,7 +4532,7 @@
   "court_online": {
     "card_title": "ONLAYN QAROR VA KO‘RSATMA",
     "card_subtitle": "Maxsus komissiya tomonidan qabul qilingan qaror va ko‘rsatmalarni inson omilisiz onlayn olish",
-    "require_txt": "Sud qarorlarini tekshirish uchun JSH SHIR yoki STIR kiriting",
+    "require_txt": "Komissiya qarorlarini tekshirish uchun JSH SHIR yoki STIR kiriting",
     "take_court_btn": "Sud qarorini olish"
   },
   "court_table_list": {

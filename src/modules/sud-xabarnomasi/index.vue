@@ -181,7 +181,7 @@ export default {
                  style="box-shadow: rgb(36, 98, 86) 1px 2px 8px; border-radius: 50%"
             />
           </a>
-          <span class="text-color ml-3 font-size-15 custom-font font-weight-bold">
+          <span class="text-color ml-2 font-size-15 custom-font font-weight-bold">
                     {{ $t('navbar.main_title') }}
                 </span>
           <b-dropdown variant="white" right toggle-class="header-item" class="languageBar">
@@ -202,9 +202,9 @@ export default {
         </div>
 
         <div class="ml-4 mb-4">
-          <h4 class="font-weight-bold my-4 custom-font" style="color: #226358;">
+          <h5 class="font-weight-bold my-4 custom-font" style="color: #226358;">
             {{ $t('sud_xabarnoma.require_txt') }}
-          </h4>
+          </h5>
           <hr style="background-color: #226358; width: 25%; height: 2px;margin-left: 0; margin-top: -10px">
         </div>
 
