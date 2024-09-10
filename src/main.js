@@ -94,7 +94,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 const options = {
-    position: 'top-right',
+    position: 'bottom-right',
     timeout: 3000
 };
 Vue.use(Toast, options);
