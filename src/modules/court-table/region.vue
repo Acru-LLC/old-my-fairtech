@@ -49,7 +49,7 @@
 
       <b-row class="mb-3 d-flex justify-content-between">
         <b-col cols="1">
-          <b-button variant="primary" class="p-2" @click="goBack">
+          <b-button style="background-color: #F39138" variant="warning" class="p-2" @click="goBack">
             <span>{{$t('actions.back')}}</span>
           </b-button>
         </b-col>
@@ -86,8 +86,8 @@
           <tbody>
           <tr v-for="(item, index) in cases" :key="index">
             <td class="align-middle"><span>{{ index + 1 }}</span></td>
-            <td class="align-middle"><span>{{ item.step1.nameSubject }}</span></td>
-            <td class="align-middle" v-if="item.step1.fieldWorkDto">
+            <td class="align-middle"><span>{{ item && item.step1 &&item.step1.nameSubject }}</span></td>
+            <td class="align-middle" v-if="item.step1 && item.step1.fieldWorkDto">
               <span>
               {{
                 getName({
@@ -156,7 +156,7 @@
     <b-modal id="no-data-modal" hide-footer hide-header no-close-on-esc no-close-on-backdrop size="lg" centered v-model="emptyModal">
       <div class="d-flex flex-column align-items-center modal-body-custom">
         <p class="font-size-17">{{ $t('court_table_list.empty_modal') }}</p>
-        <b-button style="width: 150px; border-radius: 10px; background-color: #f39138" class="btn-warning p-1" @click="closeModal"><span>{{ $t('actions.close') }}</span></b-button>
+        <b-button style="width: 150px; border-radius: 10px; background-color: #f39138" class="btn-warning p-2" @click="closeModal"><span>{{ $t('actions.close') }}</span></b-button>
       </div>
     </b-modal>
   </div>
@@ -164,6 +164,7 @@
 
 <script>
 import CheckService from "@/shared/services/checkService";
+import axios from "axios";
 
 export default {
   name: "Region",
@@ -228,63 +229,66 @@ export default {
     },
     sendRequest(data) {
       this.loading = true;
+      this.emptyModal = false;
       this.cases = [];
-      // const today = new Date();
-      // const formattedDate = today.toISOString().split('T')[0];
+
       let check = {
         soato: data,
-        date: this.today // formattedDate  // 2023-11-02
+        date: this.today // or formattedDate // 2023-11-02
       };
+
       this.searchLoader = true;
-      return CheckService.courtTable(check)
+
+      axios.post(`/complaens_info_case_field/get-works-soato-date?soato=${check.soato ? check.soato : ''}&date=${check.date ? check.date : ''}`)
           .then((result) => {
             this.cases = result.data || [];
-            // this.cases = result.data.cases;
             this.activeBox = data;
             this.tableVisible = true;
-            this.loading = false;
-            if (
-                result.data &&
-                (result.data.count !== null ||
-                    result.data.date !== null ||
-                    result.data.firstName !== null ||
-                    result.data.lastName !== null ||
-                    result.data.middleName !== null)
-            ) {
+            if (result.data !== 'Ma\'lumot topilmadi') {
               this.$toast.success(this.$t('statistics_info.download_success'));
               this.modalVisible = true;
               this.emptyModal = false;
+              // console.log("not empty loading " + this.loading)
             } else {
-              this.$toast.error(this.$t('statistics_info.empty_message'));
               this.modalVisible = true;
               this.emptyModal = true;
+              // console.log("empty loading " + this.emptyModal)
             }
           })
           .catch((err) => {
-            // this.$toast.error('Error');
+            // Handle errors but don't set loading here
             this.emptyModal = true;
+            // console.log("catch loading " + this.emptyModal)
           })
           .finally(() => {
+            // Reset loaders and loading state
             this.searchLoader = false;
             this.searchingModal = false;
             this.loading = false;
+            // console.log("finally loading " + this.emptyModal)
           });
     },
+
     goBack() {
       this.tableVisible = false;
       this.cases = [];
-      this.today = '';
       this.selectedRegion = null;
+      this.emptyModal = false;
+      this.setTodayDate();  // Reset today's date when going back
+    },
+
+    setTodayDate() {
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2, '0');
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const year = today.getFullYear();
+      this.today = `${day}-${month}-${year}`; // Set today's date in DD-MM-YYYY format
+      this.updateFormattedDate();
     }
   },
   mounted() {
     // this.today = new Date().toISOString().split('T')[0]; // Set today to the current date
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');   // Get day and pad with zero if needed
-    const month = String(today.getMonth() + 1).padStart(2, '0');  // Months are zero-indexed, so add 1
-    const year = today.getFullYear();
-
-    this.today = `${day}-${month}-${year}`;
+    this.setTodayDate();
     this.updateFormattedDate();
   },
   watch: {
