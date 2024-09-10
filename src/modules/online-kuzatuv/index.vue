@@ -169,21 +169,24 @@ export default {
       </div>
       <div class="card mx-auto d-block p-3" style="border: 1px solid #226358; width: 750px">
         <div class="d-flex justify-content-between">
-          <button @click="showInput('workNumber')"
-                  :class="{'active-class-style': activeInput === 'workNumber', 'inactive-class-style': activeInput !== 'workNumber'}"
-                  class="btn">
+          <b-button @click="showInput('workNumber')"
+                  :class="{'active-class-style1': activeInput === 'workNumber', 'inactive-class-style1': activeInput !== 'workNumber'}"
+                  style="height: 35px"
+                  class="d-flex align-items-center">
             {{ $t('online_kuzatuv.work_number_placeholder') }}
-          </button>
-          <button @click="showInput('stir')"
-                  :class="{'active-class-style': activeInput === 'stir', 'inactive-class-style': activeInput !== 'stir'}"
-                  class="btn">
+          </b-button>
+          <b-button @click="showInput('stir')"
+                  :class="{'active-class-style1': activeInput === 'stir', 'inactive-class-style1': activeInput !== 'stir'}"
+                    style="height: 35px"
+                    class="d-flex align-items-center">
             {{ $t('product_dashboard_info.stir') }}
-          </button>
-          <button @click="showInput('pinfl')"
-                  :class="{'active-class-style': activeInput === 'pinfl', 'inactive-class-style': activeInput !== 'pinfl'}"
-                  class="btn">
+          </b-button>
+          <b-button @click="showInput('pinfl')"
+                  :class="{'active-class-style1': activeInput === 'pinfl', 'inactive-class-style1': activeInput !== 'pinfl'}"
+                    style="height: 35px"
+                    class="d-flex align-items-center">
             {{ $t('services.online_checking.pinfl_placeholder') }}
-          </button>
+          </b-button>
         </div>
         <b-row class="d-flex justify-content-center my-3">
 <!--          <input-->
@@ -235,7 +238,7 @@ export default {
         <button
             @click="sendRequest"
             :disabled="!activeInputValue"
-            class="btn btn-success w-50 d-flex justify-content-center mx-auto"
+            class="btn btn-success w-50 d-flex justify-content-center mx-auto font-size-17"
             style="background-color: #226358"
         >
           {{ $t('online_kuzatuv.take_court_btn') }}
@@ -271,12 +274,12 @@ export default {
 
       <div class="mt-4 w-50 mx-auto p-2 mb-5" style="border: 1px solid #439b8e; border-radius: 5px" v-for="(item, index) in getUserDatas" :key="index">
         <b-row class="ml-1">
-            <span class="text-white p-2 font-weight-bold font-size-15" style="background-color: #226358; border-radius: 5px; width: 345px">
+            <span class="text-white p-1 font-weight-bold font-size-15" style="background-color: #226358; border-radius: 5px; width: 295px">
               {{ $t('online_kuzatuv.workNumber') }}: {{ item && item.step2_all && item.step2_all.numberOfWork ? item.step2_all.numberOfWork : '---' }}
             </span>
         </b-row>
         <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
-          <b-col class="p-2 ml-0" style="background-color: #226358; border-radius: 5px; width: 340px">
+          <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px">
             <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.qozgatilgan_infos') }}</span>
           </b-col>
           <b-row class="mt-3">
@@ -419,7 +422,7 @@ export default {
         </div>
 
         <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
-          <b-col class="p-2 ml-0" style="background-color: #226358; border-radius: 5px; width: 340px">
+          <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px">
             <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.seeWork_info') }}</span>
           </b-col>
           <b-row class="mt-3">
@@ -433,18 +436,18 @@ export default {
           <b-row>
             <b-col>
               <p class="detailText">
-                {{item.step2_all.chairmanCommission ? item.step2_all.chairmanCommission : '---'}}
+                {{item && item.step2_all && item.step2_all.chairmanCommission ? item.step2_all.chairmanCommission : '---'}}
               </p>
             </b-col>
             <b-col>
-                  <span class="value detailText">{{item && item.step2_all && item.step2_all.seeWorkDate}}</span>
-                  <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd}}</span>
+                  <span class="value detailText">{{item && item.step2_all && item.step2_all.seeWorkDate ? item.step2_all.seeWorkDate : '---'}}</span>
+                  <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd ? item.step2_all.timeEnd : '---'}}</span>
             </b-col>
           </b-row>
         </div>
 
         <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
-          <b-col class="p-2 ml-0" style="background-color: #226358; border-radius: 5px; width: 340px">
+          <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px">
             <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.final_result') }}</span>
           </b-col>
           <b-row>
@@ -498,7 +501,7 @@ export default {
                 <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.short_mind') }}</span>
                 <p class="detailText">
                   {{
-                    item.step2_all?.decisionOfContent ? editingItem.step2_all.decisionOfContent : '---'
+                    item && item.step2_all && item.step2_all.decisionOfContent ? item.step2_all.decisionOfContent : '---'
                   }}
                 </p>
               </div>
@@ -680,17 +683,19 @@ export default {
   line-height: 36px; /* 93.333% */
 }
 
-.active-class-style {
+.active-class-style1 {
   background-color: #2B675B !important;
   color: white !important;
   font-size: 17px;
+  border: transparent;
   //width: 80%;
 }
 
-.inactive-class-style {
+.inactive-class-style1 {
   background-color: #E1E8E7 !important;
   color: #2B675B !important;
   font-size: 17px;
+  border: transparent;
   //width: 48%;
 }
 p{
