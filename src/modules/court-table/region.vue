@@ -172,8 +172,9 @@ export default {
     emptyModal: false,
     showText: false,
     selectedRegion: null,
-    today: '',
-    formattedDate: '',
+    today: '',              // Display format: DD-MM-YYYY
+    backendDate: '',        // Backend format: YYYY-MM-DD
+    formattedDate: '',      // Also in display format: DD-MM-YYYY
     selectedOption: null,
     regionIsCentral: null,
     testValue: {},
@@ -218,9 +219,13 @@ export default {
     updateFormattedDate() {
       this.formattedDate = this.today;
     },
-    formatDate(date) {
+    formatDateToDisplay(date) {
       const [year, month, day] = date.split('-');
       return `${day}-${month}-${year}`;
+    },
+    formatDateToBackend(date) {
+      const [day, month, year] = date.split('-');
+      return `${year}-${month}-${day}`;
     },
     selectRegion(region) {
       this.selectedRegion = region;
@@ -234,7 +239,7 @@ export default {
 
       let check = {
         soato: data,
-        date: this.today // or formattedDate // 2023-11-02
+        date: this.backendDate // Sending backend formatted date
       };
 
       this.searchLoader = true;
@@ -248,24 +253,18 @@ export default {
               this.$toast.success(this.$t('statistics_info.download_success'));
               this.modalVisible = true;
               this.emptyModal = false;
-              // console.log("not empty loading " + this.loading)
             } else {
               this.modalVisible = true;
               this.emptyModal = true;
-              // console.log("empty loading " + this.emptyModal)
             }
           })
           .catch((err) => {
-            // Handle errors but don't set loading here
             this.emptyModal = true;
-            // console.log("catch loading " + this.emptyModal)
           })
           .finally(() => {
-            // Reset loaders and loading state
             this.searchLoader = false;
             this.searchingModal = false;
             this.loading = false;
-            // console.log("finally loading " + this.emptyModal)
           });
     },
 
@@ -282,12 +281,17 @@ export default {
       const day = String(today.getDate()).padStart(2, '0');
       const month = String(today.getMonth() + 1).padStart(2, '0');
       const year = today.getFullYear();
-      this.today = `${day}-${month}-${year}`; // Set today's date in DD-MM-YYYY format
+
+      // Set the date for display in DD-MM-YYYY format
+      this.today = `${day}-${month}-${year}`;
+
+      // Set the date for backend in YYYY-MM-DD format
+      this.backendDate = `${year}-${month}-${day}`;
+
       this.updateFormattedDate();
     }
   },
   mounted() {
-    // this.today = new Date().toISOString().split('T')[0]; // Set today to the current date
     this.setTodayDate();
     this.updateFormattedDate();
   },
@@ -305,7 +309,7 @@ export default {
       return this.cases.reduce((acc, e) => acc + (e.step1.resultsCaseReviews?.length || 0), 0);
     },
     getLocale() {
-      return localStorage.getItem('locale') ? localStorage.getItem('locale') : 'uzCyrillic'
+      return localStorage.getItem('locale') ? localStorage.getItem('locale') : 'uzCyrillic';
     },
   }
 }
