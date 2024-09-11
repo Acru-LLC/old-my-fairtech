@@ -218,6 +218,7 @@ export default {
     },
     updateFormattedDate() {
       this.formattedDate = this.today;
+      this.backendDate = this.formatDateToBackend(this.today);
     },
     formatDateToDisplay(date) {
       const [year, month, day] = date.split('-');
