@@ -101,20 +101,20 @@
             <td class="align-middle">
               <p class="mb-2">
                 <b class="detailText">
-                <span v-if="!showText">
-                  <span v-if="item.step1?.resultsCaseReviews.length > 0">
-                    <span v-if="getLocale == 'uz'">
-                      {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameLt.split(' ').slice(0, 5).join(' ') }}
-                    </span>
-                    <span v-if="getLocale == 'uzCyrillic'">
-                      {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameUz.split(' ').slice(0, 5).join(' ') }}
-                    </span>
-                    <span v-if="getLocale == 'ru'">
-                      {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameRu.split(' ').slice(0, 5).join(' ') }}
-                    </span>
-                  </span>
-                </span>
-                  <ol v-if="showText" class="ml-3">
+      <span v-if="!showTextIndices.includes(index)">
+        <span v-if="item.step1?.resultsCaseReviews.length > 0">
+          <span v-if="getLocale == 'uz'">
+            {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameLt.split(' ').slice(0, 5).join(' ') }}
+          </span>
+          <span v-if="getLocale == 'uzCyrillic'">
+            {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameUz.split(' ').slice(0, 5).join(' ') }}
+          </span>
+          <span v-if="getLocale == 'ru'">
+            {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameRu.split(' ').slice(0, 5).join(' ') }}
+          </span>
+        </span>
+      </span>
+                  <ol v-if="showTextIndices.includes(index)" class="ml-3">
                     <li v-for="(tItem, tIndex) in item.step1?.resultsCaseReviews" :key="tIndex">
                       {{
                         getName({
@@ -125,13 +125,14 @@
                       }}
                     </li>
                   </ol>
-                  <span @click="toggleShowText" style="color:#f39138; cursor: pointer;">
-                  <span v-if="!showText"> ...{{ $t('actions.details') }} ({{ lengthOfCaseBrake }})</span>
-                  <span v-else> ...{{ $t('actions.close') }}</span>
-                </span>
+                  <span @click="toggleShowText(index)" style="color:#f39138; cursor: pointer;">
+        <span v-if="!showTextIndices.includes(index)"> ...{{ $t('actions.details') }} ({{ item.step1?.resultsCaseReviews.length }})</span>
+        <span v-else> ...{{ $t('actions.close') }}</span>
+      </span>
                 </b>
               </p>
             </td>
+
             <td class="align-middle"><span>{{ item.step1.numberOfWork }}</span></td>
             <td class="align-middle">
               <span>
@@ -169,6 +170,7 @@ import axios from "axios";
 export default {
   name: "Region",
   data: () => ({
+    showTextIndices: [],
     emptyModal: false,
     showText: false,
     selectedRegion: null,
@@ -213,8 +215,15 @@ export default {
     resetModal() {
       this.showModal = false;
     },
-    toggleShowText() {
-      this.showText = !this.showText;
+    toggleShowText(index) {
+      const idx = this.showTextIndices.indexOf(index);
+      if (idx > -1) {
+        // Remove from array to collapse
+        this.showTextIndices.splice(idx, 1);
+      } else {
+        // Add to array to expand
+        this.showTextIndices.push(index);
+      }
     },
     updateFormattedDate() {
       this.formattedDate = this.today;
