@@ -68,8 +68,8 @@
           {{ $t('court_table_list.region.second_part_text') }}</p>
       </b-row>
       <!-- Scrollable Table Container -->
-      <span class="loader" v-if="loading"></span>
-      <div class="table-container" v-if="!loading">
+
+      <div class="table-container">
         <table class="table table-striped text-center">
           <thead class="bg-primary text-white">
           <tr class="text-center">
@@ -83,12 +83,13 @@
             <th class="align-middle"><span>{{ $t('court_table_list.table_columns.work_step') }}</span></th>
           </tr>
           </thead>
-          <tbody>
+          <tbody v-if="cases && cases.value !== null">
+          <span class="loader position-absolute" style="top: 100%; left: 50%;" v-if="loading"></span>
           <tr v-for="(item, index) in cases" :key="index">
             <td class="align-middle"><span>{{ index + 1 }}</span></td>
-            <td class="align-middle"><span>{{ item && item.step1 &&item.step1.nameSubject }}</span></td>
-            <td class="align-middle" v-if="item.step1 && item.step1.fieldWorkDto">
-              <span>
+            <td class="align-middle"><span>{{ item && item.step1 && item.step1.nameSubject ? item.step1.nameSubject : '---' }}</span></td>
+            <td class="align-middle" >
+              <span v-if="item && item.step1 && item.step1.fieldWorkDto">
               {{
                 getName({
                   nameLt: item.step1.fieldWorkDto.nameLt,
@@ -97,20 +98,21 @@
                 })
               }}
               </span>
+              <span v-else>---</span>
             </td>
             <td class="align-middle">
               <p class="mb-2">
                 <b class="detailText">
       <span v-if="!showTextIndices.includes(index)">
-        <span v-if="item.step1?.resultsCaseReviews.length > 0">
+        <span v-if="item && item.step1 && item.step1.resultsCaseReviews.length > 0">
           <span v-if="getLocale == 'uz'">
-            {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameLt.split(' ').slice(0, 5).join(' ') }}
+            {{ item && item.step1 && item.step1.resultsCaseReviews[0].brokenDocsDto?.nameLt.split(' ').slice(0, 5).join(' ') }}
           </span>
           <span v-if="getLocale == 'uzCyrillic'">
-            {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameUz.split(' ').slice(0, 5).join(' ') }}
+            {{ item && item.step1 && item.step1.resultsCaseReviews[0].brokenDocsDto?.nameUz.split(' ').slice(0, 5).join(' ') }}
           </span>
           <span v-if="getLocale == 'ru'">
-            {{ item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameRu.split(' ').slice(0, 5).join(' ') }}
+            {{ item && item.step1 && item.step1.resultsCaseReviews[0].brokenDocsDto?.nameRu.split(' ').slice(0, 5).join(' ') }}
           </span>
         </span>
       </span>
@@ -126,27 +128,34 @@
                     </li>
                   </ol>
                   <span @click="toggleShowText(index)" style="color:#f39138; cursor: pointer;">
-        <span v-if="!showTextIndices.includes(index)"> ...{{ $t('actions.details') }} ({{ item.step1?.resultsCaseReviews.length }})</span>
+        <span v-if="!showTextIndices.includes(index)"> ...{{ $t('actions.details') }} ({{ item && item.step1 && item.step1.resultsCaseReviews.length }})</span>
         <span v-else> ...{{ $t('actions.close') }}</span>
       </span>
                 </b>
               </p>
             </td>
 
-            <td class="align-middle"><span>{{ item.step1.numberOfWork }}</span></td>
+            <td class="align-middle"><span>{{ item && item.step1 && item.step1.numberOfWork ? item.step1.numberOfWork : '---' }}</span></td>
             <td class="align-middle">
               <span>
               {{
-                item.step1?.dateEnd ? item.step1.dateEnd : item.step2_all?.seeWorkDate ? item.step2_all.seeWorkDate : '- - -'
+                item && item.step1 && item.step1.dateEnd ? item.step1.dateEnd : item && item.step2_all && item.step2_all.seeWorkDate ? item.step2_all.seeWorkDate : '- - -'
               }},
               {{
-                item.step1?.timeEnd ? item.step1.timeEnd.slice(0, 5) : item.step2_all?.timeEnd ? item.step2_all.timeEnd.slice(0, 5) : '- - -'
+                item && item.step1 && item.step1.timeEnd ? item.step1.timeEnd.slice(0, 5) : item && item.step2_all && item.step2_all.timeEnd ? item.step2_all.timeEnd.slice(0, 5) : '- - -'
               }}
               </span>
             </td>
-            <td class="align-middle"><span>{{ item.step1.chairmanCommission }}</span></td>
+            <td class="align-middle"><span>{{ item && item.step1 && item.step1.chairmanCommission ? item.step1.chairmanCommission : '---' }}</span></td>
             <td class="align-middle"><span>{{ $t('court_table_list.table_columns.first_step') }}</span></td>
           </tr>
+          </tbody>
+          <tbody v-else>
+<!--          <tr >-->
+<!--            <td colspan="8" class="align-middle">-->
+<!--              <p class="text-center">{{ $t('actions.empty') }}</p>-->
+<!--            </td>-->
+<!--          </tr>-->
           </tbody>
         </table>
       </div>
@@ -258,23 +267,29 @@ export default {
           .then((result) => {
             this.cases = result.data || [];
             this.activeBox = data;
-            this.tableVisible = true;
-            if (result.data !== 'Ma\'lumot topilmadi') {
-              this.$toast.success(this.$t('statistics_info.download_success'));
+
+            // Check if 'result.data' exists and has a 'value' key
+            if (result.data && result.data.value !== null) {
+              // this.$toast.success(this.$t('statistics_info.download_success'));
               this.modalVisible = true;
-              this.emptyModal = false;
+              this.emptyModal = false;  // Modal for non-empty case
+              this.tableVisible = true;  // Show table when there's valid data
             } else {
-              this.modalVisible = true;
-              this.emptyModal = true;
+              // Case when 'result.data.value' is null
+              this.emptyModal = true;   // Empty modal for the error case
+              this.tableVisible = true; // Hide the table since there's no valid data
             }
+            this.loading = false;
           })
           .catch((err) => {
             this.emptyModal = true;
+            this.tableVisible = false; // Ensure table is hidden on error
+            this.$toast.error(this.$t('statistics_info.download_error'));
           })
           .finally(() => {
             this.searchLoader = false;
             this.searchingModal = false;
-            this.loading = false;
+            this.loading = false; // Ensure loader stops in all cases
           });
     },
 
