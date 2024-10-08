@@ -4583,10 +4583,13 @@
     "take_court_btn": "Xabarnomani o'qish",
     "checked": "Tekshirildi",
     "checked_today": "Bugun tekshirildi",
+    "downloaded": "Yuklanganlar",
+    "downloaded_today": "Bugun yuklanganlar",
     "telegram": "Bizning Telegram bot",
     "support": "Texnik xizmat ko'rsatish",
     "qomita": "Raqobat qo'mitasi",
-    "modal_message": "Hurmatli fuqaro Sizga elektron shaklda komissiya xabarnomasi kelib tushgan!",
+    "modal_message": "Hurmatli fuqaro Sizga elektron shaklda komissiya xabarnomasi kelib tushmagan!",
+    "modal_red_message": "Hurmatli fuqaro Sizga elektron shaklda sud xabarnomasi yuborilgan. Sud xabarnomasini olish uchun axborat tizimidan ro‘yxatdan o‘tib shaxsiy kabinetga ega bo‘ling!",
     "modal_btn": "Xabarni o'qish"
   },
   "online_kuzatuv": {
