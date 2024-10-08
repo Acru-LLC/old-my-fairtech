@@ -17,6 +17,10 @@ const checkService = {
     return ApiService.get(`complaens_info_case_field/get-all-last-day-count`);
   },
 
+  getXabarnomaCount(code) {
+    return ApiService.post(`complaens_info_case_field/get-count-xabarnoma-online-qaror?code=${code}`);
+  },
+
   // online sud qarori
   onlineSudQarori(data){
     return ApiService.post(`/complaens_info_case_field/get-work-qaror?stir=${data.stir ? data.stir : ''}&pinfl=${data.pinfl ? data.pinfl : ''}`)
