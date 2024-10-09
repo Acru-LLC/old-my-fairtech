@@ -12,8 +12,8 @@ export default {
       searchingModal: false,
       isTelefonActive: true,
       isJshshirActive: false,
-      telefonInput: null,
-      jshshirInput: null,
+      telefonInput: '',
+      jshshirInput: '',
       fish: '',
       appealCount: '',
       appealDate: '',
@@ -96,44 +96,36 @@ export default {
     },
     sendRequest() {
       this.loading = true;
+
+      // Create check object based on active input
       let check = {
-        stir: this.telefonInput ? this.telefonInput.replace(/\s+/g, '') : '',
-        pinfl: this.jshshirInput,
-        fish: this.fish,
-        appealCount: this.appealCount,
-        appealDate: this.appealDate
+        stir: this.isJshshirActive ? this.telefonInput.replace(/\s+/g, '') : '',
+        pinfl: this.isTelefonActive ? this.jshshirInput : '',
+        // fish: this.fish,
+        // appealCount: this.appealCount,
+        // appealDate: this.appealDate
       }
+
       this.searchLoader = true;
       return CheckService.onlineSudQarori(check)
           .then((result) => {
             this.getUserDatas = result.data;
-            // console.log(result.data)
-            this.phoneNumber = '';
-            this.pinfl = '';
-            this.fish = '';
-            this.appealCount = '';
-            this.appealDate = '';
+
+            // Clear inputs after request
+            this.telefonInput = '';
+            this.jshshirInput = '';
+            // this.fish = '';
+            // this.appealCount = '';
+            // this.appealDate = '';
             this.searchLoader = false;
             this.loading = false;
-            if (
-                result.data &&
-                (result.data.count !== null ||
-                    result.data.date !== null ||
-                    result.data.firstName !== null ||
-                    result.data.lastName !== null ||
-                    result.data.middleName !== null)
-            ) {
-              this.$toast.success(this.$t('statistics_info.download_success'));
-              this.modalVisible = true;
-            } else {
-              this.$toast.error(this.$t('statistics_info.empty_message'));
-              this.modalVisible = true;
-            }
-            // console.log(result.data)
+            this.modalVisible = true;
+
+            this.fetchDailyIndex();
           })
           .catch((err) => {
-            this.$toast.error('Error');
-            // this.catchErr(err);
+            console.error('Error:', err);
+            this.$toast.error(this.$t('error_message'));
           })
           .finally(() => {
             this.searchLoader = false;
@@ -144,7 +136,7 @@ export default {
 
     fetchDailyIndex() {
       this.searchLoader = true;
-      return CheckService.getDailyIndex()
+      return CheckService.getXabarnomaCount('ONLAYIN_QAROR')
           .then((result) => {
             this.dailyIndex = result.data;
             // console.log(result.data)
@@ -225,17 +217,36 @@ export default {
                    v-mask="'##############'" :placeholder="$t('pharm_check_sms.pinfl_placeholder')"/>
           </div>
           <button @click="sendRequest"
+                  :disabled="!telefonInput && !jshshirInput"
                   class="btn btn-success w-100 d-flex justify-content-center green-gradient-bg2 custom-font font-size-17">
             {{ $t('pharm_check_sms.check_btn') }}
           </button>
         </div>
 
 <!--        <span class="loader" v-if="loading"></span>-->
-        <div class="container-box my-5 ml-4">
+        <div class="container-box mt-5 ml-4">
           <div class="row text-center">
             <div class="col-md-6 mb-4">
               <div class="info-box">
-                <h1 class="counter custom-font">{{dailyIndex.body.finished}}</h1>
+                <h1 class="counter custom-font">{{ dailyIndex && dailyIndex.AllLoaded ? dailyIndex.AllLoaded : 0 }}</h1>
+                <p class="custom-font text-color font-size-17">
+                  {{ $t('sud_xabarnoma.downloaded') }}
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <div class="info-box highlighted">
+                <h1 class="counter custom-font">{{ dailyIndex && dailyIndex.loadedToday ? dailyIndex.loadedToday : 0 }}</h1>
+                <p class="custom-font text-color font-size-17">
+                  {{ $t('sud_xabarnoma.downloaded_today') }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-md-6 mb-4">
+              <div class="info-box">
+                <h1 class="counter custom-font">{{ dailyIndex && dailyIndex.AllChecked ? dailyIndex.AllChecked : 0 }}</h1>
                 <p class="custom-font text-color font-size-17">
                   {{ $t('sud_xabarnoma.checked') }}
                 </p>
@@ -243,7 +254,7 @@ export default {
             </div>
             <div class="col-md-6 mb-4">
               <div class="info-box highlighted">
-                <h1 class="counter custom-font">{{dailyIndex.body.lastDayFinished}}</h1>
+                <h1 class="counter custom-font">{{ dailyIndex && dailyIndex.checkedToday ? dailyIndex.checkedToday : 0 }}</h1>
                 <p class="custom-font text-color font-size-17">
                   {{ $t('sud_xabarnoma.checked_today') }}
                 </p>
@@ -251,33 +262,55 @@ export default {
             </div>
           </div>
 
-          <div class="contact-info custom-font mt-4">
-            <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg" alt="">{{ $t('sud_xabarnoma.telegram') }}</p>
-            <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt=""> {{ $t('sud_xabarnoma.support') }}: <a  class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a  class="custom-font" href="tel:1159">(1159)</a></p>
+          <div class="contact-info custom-font ">
+            <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg"
+                                        alt=""><a target="_blank" href="https://t.me/rquzBot">{{ $t('sud_xabarnoma.telegram') }}</a></p>
+            <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt="">
+              {{ $t('sud_xabarnoma.support') }}: <a class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a
+                  class="custom-font" href="tel:1159">(1159)</a></p>
           </div>
 
-          <footer class="mt-5">
-            <p class="custom-font mb-0">{{ $t('sud_xabarnoma.qomita') }}</p>
-            <p class="custom-font">2024</p>
+          <footer>
+            <b-row>
+              <b-col>
+                <p class="custom-font mb-0">{{ $t('sud_xabarnoma.qomita') }}</p>
+                <p class="custom-font">2024</p>
+              </b-col>
+              <b-col>
+                <b-button style="background: #F39138" class="btn btn-warning float-right" size="md" @click="$router.go(-1)">
+                  &leftarrow; {{ $t("actions.back") }}
+                </b-button>
+              </b-col>
+            </b-row>
           </footer>
         </div>
-        <b-button style="background: #F39138" class="btn btn-warning float-right" size="md" @click="$router.go(-1)">
-          &leftarrow; {{ $t("actions.back") }}
-        </b-button>
 
       </b-col>
       <b-col cols="8 d-flex justify-content-center align-items-center position-relative">
         <div class="logo"></div>
         <div v-if="modalVisible" class="modal-container">
           <span class="close-btn" @click="modalVisible = false">&times;</span>
-          <div class="modal-number mt-3 custom-font">
-            {{ getUserDatas ? getUserDatas : 0}}
-          </div>
-          <div class="text-color text-center p-3">
-            <p class="modal-text font-size-17 custom-font">
+          <div class="modal-number mt-3 custom-font text-center w-75"
+               :style="getUserDatas !== 0 ? 'background-color: rgba(253, 240, 240, .5)' : 'background-color: rgba(240, 253, 244, .5)'">
+            {{ getUserDatas ? getUserDatas : 0 }}
+
+
+            <p class="modal-text font-size-17 custom-font" v-if="getUserDatas !== 0">
+              {{ $t('sud_xabarnoma.modal_red_message') }}
+            </p>
+            <p class="modal-text font-size-17 custom-font" v-else>
               {{ $t('sud_xabarnoma.modal_message') }}
             </p>
-            <a href="https://cabinet.fairtech.uz/" target="_blank" class="modal-button green-gradient-bg2 btn btn-success custom-font">
+          </div>
+          <div class="text-color text-center p-3"
+          >
+            <span
+                @click="modalVisible = false"
+                class="modal-button1 btn btn-warning custom-font">
+              {{ $t('submodules.dxa.close_modal') }}
+            </span>
+            <a href="https://cabinet.fairtech.uz/" target="_blank"
+               class="modal-button green-gradient-bg2 btn btn-success custom-font">
               {{ $t('sud_xabarnoma.modal_btn') }}
             </a>
           </div>
@@ -333,7 +366,7 @@ export default {
   background-color: #f8fdfc;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  padding: 30px 20px;
+  padding: 20px 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -513,9 +546,22 @@ footer p {
   cursor: pointer;
   font-size: 16px;
 }
+/* Button Style */
+.modal-button1 {
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 3rem;
+}
 
 .modal-button:hover {
   background-color: #005333; /* Darker Green */
+}
+.modal-button1:hover {
+  background-color: orange; /* Darker Green */
 }
 
 .date-label {

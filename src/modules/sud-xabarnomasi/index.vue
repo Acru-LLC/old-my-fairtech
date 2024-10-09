@@ -12,8 +12,8 @@ export default {
       searchingModal: false,
       isTelefonActive: true,
       isJshshirActive: false,
-      telefonInput: null,
-      jshshirInput: null,
+      telefonInput: '',
+      jshshirInput: '',
       fish: '',
       appealCount: '',
       appealDate: '',
@@ -97,22 +97,19 @@ export default {
     sendRequest() {
       this.loading = true;
       let check = {
-        stir: this.telefonInput ? this.telefonInput.replace(/\s+/g, '') : '',
-        pinfl: this.jshshirInput,
-        fish: this.fish,
-        appealCount: this.appealCount,
-        appealDate: this.appealDate
+        stir: this.isJshshirActive ? this.telefonInput.replace(/\s+/g, '') : '',
+        pinfl: this.isTelefonActive ? this.jshshirInput : '',
+        // fish: this.fish,
+        // appealCount: this.appealCount,
+        // appealDate: this.appealDate
       }
       this.searchLoader = true;
       return CheckService.courtCheckOnline(check)
           .then((result) => {
             this.getUserDatas = result.data;
             // console.log(result.data)
-            this.phoneNumber = '';
-            this.pinfl = '';
-            this.fish = '';
-            this.appealCount = '';
-            this.appealDate = '';
+            this.telefonInput = '';
+            this.jshshirInput = '';
             this.searchLoader = false;
             this.loading = false;
             if (
