@@ -163,7 +163,9 @@ export default {
 <template>
   <div>
     <b-row style="background-color: #e3f2ef; min-height: 100vh">
-      <b-col :style="modalVisible ? 'opacity: 0.5; pointer-events: none; z-index: 1' : ''" cols="4" class="p-3" style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15); border-bottom-right-radius: 20px; border-top-right-radius: 20px; background-color: white">
+      <div :style="modalVisible ? 'opacity: 0.5; pointer-events: none; z-index: 1' : ''"
+           class="p-3 page-left-content"
+           style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15); border-bottom-right-radius: 20px; border-top-right-radius: 20px; background-color: white">
         <div class="d-flex justify-content-between align-items-center ml-4">
           <a class="" href="/">
             <img src="@/assets/image/gerb.svg"
@@ -210,7 +212,7 @@ export default {
                     class="btn">{{ $t('column.legal_entity') }}
             </button>
           </div>
-          <div class="d-flex justify-content-center my-3 custom-font">
+          <div class="d-flex justify-content-center my-2 custom-font">
             <input v-if="isJshshirActive" class="form-control shadow-box font-size-17" v-model="telefonInput"
                    v-mask="'### ### ###'" :placeholder="$t('bojxona_info.stir')"/>
             <input v-if="isTelefonActive" class="form-control shadow-box font-size-17" v-model="jshshirInput"
@@ -218,13 +220,20 @@ export default {
           </div>
           <button @click="sendRequest"
                   :disabled="!telefonInput && !jshshirInput"
-                  class="btn btn-success w-100 d-flex justify-content-center green-gradient-bg2 custom-font font-size-17">
+                  class="btn btn-success d-flex justify-content-center green-gradient-bg2 custom-font font-size-17">
             {{ $t('pharm_check_sms.check_btn') }}
           </button>
+          <div class="contact-info custom-font mt-3">
+            <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg"
+                                        alt=""><a target="_blank" href="https://t.me/rquzBot">{{ $t('sud_xabarnoma.telegram') }}</a></p>
+            <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt="">
+              {{ $t('sud_xabarnoma.support') }}: <a class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a
+                  class="custom-font" href="tel:1159">(1159)</a></p>
+          </div>
         </div>
 
 <!--        <span class="loader" v-if="loading"></span>-->
-        <div class="container-box mt-5 ml-4">
+        <div class="container-box mt-3 ml-4">
           <div class="row text-center">
             <div class="col-md-6 mb-4">
               <div class="info-box">
@@ -262,31 +271,35 @@ export default {
             </div>
           </div>
 
-          <div class="contact-info custom-font ">
-            <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg"
-                                        alt=""><a target="_blank" href="https://t.me/rquzBot">{{ $t('sud_xabarnoma.telegram') }}</a></p>
-            <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt="">
-              {{ $t('sud_xabarnoma.support') }}: <a class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a
-                  class="custom-font" href="tel:1159">(1159)</a></p>
-          </div>
+<!--          <div class="contact-info custom-font ">-->
+<!--            <p class="custom-font"><img width="30" height="30" src="./tg_gradient.svg"-->
+<!--                                        alt=""><a target="_blank" href="https://t.me/rquzBot">{{ $t('sud_xabarnoma.telegram') }}</a></p>-->
+<!--            <p class="custom-font"><img width="30" height="30" src="./info_gradient.svg" alt="">-->
+<!--              {{ $t('sud_xabarnoma.support') }}: <a class="custom-font" href="tel:+998712074800">71-207-48-00 </a><a-->
+<!--                  class="custom-font" href="tel:1159">(1159)</a></p>-->
+<!--          </div>-->
 
           <footer>
             <b-row>
               <b-col>
-                <p class="custom-font mb-0">{{ $t('sud_xabarnoma.qomita') }}</p>
-                <p class="custom-font">2024</p>
-              </b-col>
-              <b-col>
-                <b-button style="background: #F39138" class="btn btn-warning float-right" size="md" @click="$router.go(-1)">
+                <b-button style="background: #F39138" class="btn btn-warning float-left" size="md" @click="$router.go(-1)">
                   &leftarrow; {{ $t("actions.back") }}
                 </b-button>
+              </b-col>
+              <b-col>
+                <p class="custom-font mb-0 d-flex">©{{ $t('sud_xabarnoma.qomita') }}</p>
+                <p class="custom-font">2021-2024</p>
+              </b-col>
+              <b-col>
+                <span class="mb-0" style="color: #bfbfbfee">{{ $t('site_creator') }}</span>
+                <p class="custom-font">{{ $t('rtam') }} 2024</p>
               </b-col>
             </b-row>
           </footer>
         </div>
 
-      </b-col>
-      <b-col cols="8 d-flex justify-content-center align-items-center position-relative">
+      </div>
+      <div class="d-flex justify-content-center align-items-center position-relative page-right-content">
         <div class="logo"></div>
         <div v-if="modalVisible" class="modal-container">
           <span class="close-btn" @click="modalVisible = false">&times;</span>
@@ -315,7 +328,7 @@ export default {
             </a>
           </div>
         </div>
-      </b-col>
+      </div>
     </b-row>
   </div>
 </template>
@@ -359,7 +372,7 @@ export default {
 
 .container-box {
   max-width: 600px;
-  margin: 0 auto;
+  //margin: 0 auto;
 }
 
 .info-box {
@@ -690,5 +703,33 @@ footer p {
 @keyframes animloader {
   0%   { height: 48px}
   100% { height: 4px}
+}
+.page-left-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.page-right-content{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
+}
+@media (min-width: 1280px) {
+  .page-right-content {
+    display: flex;
+    flex: 0 0 calc(100% - 600px);
+    max-width: calc(100% - 600px);
+  }
+}
+@media (min-width: 1280px) {
+  .page-left-content {
+    padding: 1.5rem;
+    flex: 0 0 600px;
+    max-width: 600px;
+  }
 }
 </style>
