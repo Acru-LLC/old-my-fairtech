@@ -4618,5 +4618,7 @@
   "loader": {
     "waiting": "Iltimos kuting!",
     "downloading": "Ma'lumotlar yuklanmoqda."
-  }
+  },
+  "site_creator": "Saytni ishlab chiquvchi:",
+  "rtam": "''RTAM'' DUK"
 }
