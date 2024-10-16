@@ -4620,5 +4620,9 @@
     "downloading": "Ma'lumotlar yuklanmoqda."
   },
   "site_creator": "Saytni ishlab chiquvchi:",
-  "rtam": "''RTAM'' DUK"
+  "rtam": "''RTAM'' DUK",
+  "samaradorlik": {
+    "title": "Samaradorlik",
+    "subtitle": "Davlat organlari va xo‘jalik yurituvchi subyektlarda monopoliyaga qarshi komplayensni joriy etish va uning samaradorligini baholash tizimi"
+  }
 }
