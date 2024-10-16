@@ -14,6 +14,7 @@ export default {
       isSubtitleVisible8: false,
       isSubtitleVisible9: false,
       isSubtitleVisible10: false,
+      isSubtitleVisible11: false,
       showModal: false,
       showModal2: false,
       showModalPrice: false
@@ -52,6 +53,8 @@ export default {
         case 'ten':
           this.isSubtitleVisible10 = !this.isSubtitleVisible10;
           break;
+        case 'eleven':
+          this.isSubtitleVisible11 = !this.isSubtitleVisible11
       }
     },
   }
@@ -309,6 +312,27 @@ export default {
                 <i class="font-size-12" :class="isSubtitleVisible10 ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
               </button>
             </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-12 mb-4">
+          <div class="p-3" :class="isSubtitleVisible11 ? 'active-card' : 'inactive-card'"
+               style="border-radius: 5px; cursor: pointer; box-shadow: rgb(201 219 215) 2px 4px 8px 0px">
+            <div class="hover-effect">
+              <a href="https://cabinet.fairtech.uz/services/services-samaradorlik" target="_blank">
+                <img src="@/assets/image/rqbot.svg" alt="" class="custom-icons">
+                <!--                <i class="fab fa-telegram-plane"></i>-->
+                <h4 class="padding-t-15 text-color font-weight-bold">{{ $t('samaradorlik.title') }}</h4>
+                <p class="padding-t-10 text-color" v-if="isSubtitleVisible11">
+                  {{ $t('samaradorlik.subtitle') }}
+                </p>
+              </a>
+            </div>
+            <!-- "Batafsil" Button with Chevron -->
+            <button @click="toggleSubtitle('eleven')" class="btn btn-link p-0 font-size-17">
+              {{ $t('actions.details') }}
+              <i class="font-size-12" :class="isSubtitleVisible11 ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+            </button>
+          </div>
         </div>
         <!--        <div class="col-lg-3 col-md-6 col-12">-->
         <!--          <router-link to="/online-kuzatuv" teg="div">-->
