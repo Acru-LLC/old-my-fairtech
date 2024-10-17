@@ -321,7 +321,7 @@ export default {
               <a href="https://cabinet.fairtech.uz/services/services-samaradorlik" target="_blank">
                 <img src="@/assets/image/rqbot.svg" alt="" class="custom-icons">
                 <!--                <i class="fab fa-telegram-plane"></i>-->
-                <h4 class="padding-t-15 text-color font-weight-bold">{{ $t('samaradorlik.title') }}</h4>
+                <h4 class="padding-t-15 text-color font-weight-bold text-uppercase">{{ $t('samaradorlik.title') }}</h4>
                 <p class="padding-t-10 text-color" v-if="isSubtitleVisible11">
                   {{ $t('samaradorlik.subtitle') }}
                 </p>
