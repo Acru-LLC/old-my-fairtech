@@ -61,10 +61,12 @@
         </b-col>
       </b-row>
       <b-row class="mb-3 d-flex justify-content-center">
-        <p v-if="selectedRegionTitle !== $t('court_table_list.region.qomita')"><b class="text-color">{{$t('sud_xabarnoma.qomita')}} {{ selectedRegionTitle }} </b>{{$t('court_table_list.region.first_part_text')}} <b class="text-color">{{ today }}</b>
+        <p v-if="selectedRegionTitle !== $t('court_table_list.region.qomita')"><b class="text-color"> {{ selectedRegionTitle }} </b>{{$t('sud_xabarnoma.qomita')}}{{$t('court_table_list.region.first_part_for_qomita')}}
+          <b class="text-color">{{ today }}</b>
           {{ $t('court_table_list.region.second_part_text') }}</p>
 
-        <p v-else><b class="text-color"> {{ $t('court_table_list.region.only_qomita') }}</b>{{$t('court_table_list.region.first_part_for_qomita')}} <b class="text-color">{{ formattedDate }}</b>
+        <p v-else><b class="text-color"> {{ $t('court_table_list.region.only_qomita') }}</b>{{$t('court_table_list.region.first_part_for_qomita')}}
+          <b class="text-color">{{ formattedDate }}</b>
           {{ $t('court_table_list.region.second_part_text') }}</p>
       </b-row>
       <!-- Scrollable Table Container -->
