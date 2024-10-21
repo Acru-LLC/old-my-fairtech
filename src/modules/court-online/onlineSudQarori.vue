@@ -204,11 +204,11 @@ export default {
         <div class="ml-4">
           <div class="d-flex justify-content-between shadow-box custom-font">
             <button @click="showInput('phoneNumber')"
-                    :class="{'active-class-style': isTelefonActive, 'inactive-class-style': !isTelefonActive}"
+                    :class="{'active-class-qaror': isTelefonActive, 'inactive-class-qaror': !isTelefonActive}"
                     class="btn">{{ $t('column.individual') }}
             </button>
             <button @click="showInput('pinfl')"
-                    :class="{'active-class-style': isJshshirActive, 'inactive-class-style': !isJshshirActive}"
+                    :class="{'active-class-qaror': isJshshirActive, 'inactive-class-qaror': !isJshshirActive}"
                     class="btn">{{ $t('column.legal_entity') }}
             </button>
           </div>
@@ -646,7 +646,7 @@ footer p {
   line-height: 36px; /* 93.333% */
 }
 
-.active-class-style {
+.active-class-qaror {
   color: #2B675B !important;
   font-size: 17px;
   width: 48%;
@@ -663,7 +663,7 @@ footer p {
   border-radius: 8px;
 }
 
-.inactive-class-style {
+.inactive-class-qaror {
   //background-color: #E1E8E7 !important;
   color: #2B675B !important;
   font-size: 17px;

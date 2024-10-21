@@ -510,6 +510,10 @@ export default {
   height: 50px;
 }
 
+.modal-content{
+  height: auto!important;
+}
+
 #modal-2 .modal-title {
   width: 40%;
   background-color: #2b675b;
