@@ -89,14 +89,18 @@
           <span class="loader position-absolute" style="top: 100%; left: 50%;" v-if="loading"></span>
           <tr v-for="(item, index) in cases" :key="index">
             <td class="align-middle"><span>{{ index + 1 }}</span></td>
-            <td class="align-middle"><span>{{ item && item.step1 && item.step1.nameSubject ? item.step1.nameSubject : '---' }}</span></td>
+            <td class="align-middle">
+              <span v-if="getLocale == 'uzCyrillic'">{{ toCyrill(item && item.step1 && item.step1.nameSubject ? item.step1.nameSubject : '---') }}</span>
+              <span v-else>{{ item && item.step1 && item.step1.nameSubject ? item.step1.nameSubject : '---' }}</span>
+            </td>
             <td class="align-middle" >
               <span v-if="item && item.step1 && item.step1.fieldWorkDto">
               {{
                 getName({
+                  nameEn: item.step1.fieldWorkDto.nameEn,
                   nameLt: item.step1.fieldWorkDto.nameLt,
-                  nameUz: item.step1.fieldWorkDto.nameRu,
-                  nameRu: item.step1.fieldWorkDto.nameUz,
+                  nameRu: item.step1.fieldWorkDto.nameRu,
+                  nameUz: item.step1.fieldWorkDto.nameUz,
                 })
               }}
               </span>
@@ -148,7 +152,10 @@
               }}
               </span>
             </td>
-            <td class="align-middle"><span>{{ item && item.step1 && item.step1.chairmanCommission ? item.step1.chairmanCommission : '---' }}</span></td>
+            <td class="align-middle">
+              <span v-if="getLocale == 'uzCyrillic'">{{ toCyrill(item && item.step1 && item.step1.chairmanCommission ? item.step1.chairmanCommission : '---') }}</span>
+              <span v-else>{{ item && item.step1 && item.step1.chairmanCommission ? item.step1.chairmanCommission : '---' }}</span>
+            </td>
             <td class="align-middle"><span>{{ $t('court_table_list.table_columns.first_step') }}</span></td>
           </tr>
           </tbody>
