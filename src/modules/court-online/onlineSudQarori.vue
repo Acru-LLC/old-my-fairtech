@@ -194,7 +194,7 @@ export default {
           </b-dropdown>
         </div>
 
-        <div class="ml-4 mb-4">
+        <div class="ml-4 mb-2">
           <h5 class="font-weight-bold my-4 custom-font" style="color: #226358;">
             {{ $t('court_online.require_txt') }}
           </h5>
@@ -309,10 +309,10 @@ export default {
 
 
             <p class="modal-text font-size-17 custom-font" v-if="getUserDatas !== 0">
-              {{ $t('sud_xabarnoma.modal_red_message') }}
+              {{ $t('court_online.modal_red_message') }}
             </p>
             <p class="modal-text font-size-17 custom-font" v-else>
-              {{ $t('sud_xabarnoma.modal_message') }}
+              {{ $t('court_online.modal_message') }}
             </p>
           </div>
           <div class="text-color text-center p-3"
@@ -322,9 +322,9 @@ export default {
                 class="modal-button1 btn btn-warning custom-font">
               {{ $t('submodules.dxa.close_modal') }}
             </span>
-            <a href="https://cabinet.fairtech.uz/" target="_blank"
+            <a href="https://cabinet.fairtech.uz/online-qaror" target="_blank"
                class="modal-button green-gradient-bg2 btn btn-success custom-font">
-              {{ $t('sud_xabarnoma.modal_btn') }}
+              {{ $t('court_online.take_court_btn') }}
             </a>
           </div>
         </div>

@@ -199,7 +199,7 @@ export default {
           </b-dropdown>
         </div>
 
-        <div class="ml-4 mb-4">
+        <div class="ml-4 mb-2">
           <h5 class="font-weight-bold my-4 custom-font" style="color: #226358;">
             {{ $t('sud_xabarnoma.require_txt') }}
           </h5>
@@ -328,7 +328,7 @@ export default {
                class="modal-button1 btn btn-warning custom-font">
               {{ $t('submodules.dxa.close_modal') }}
             </span>
-            <a href="https://cabinet.fairtech.uz/" target="_blank"
+            <a href="https://cabinet.fairtech.uz/xabarnoma" target="_blank"
                class="modal-button green-gradient-bg2 btn btn-success custom-font">
               {{ $t('sud_xabarnoma.modal_btn') }}
             </a>
