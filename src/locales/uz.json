@@ -1,6 +1,6 @@
 {
   "navbar": {
-    "main_title": "O‘ZBЕKISTON RЕSPUBLIKASI RAQOBATNI RIVOJLANTIRISH VA ISTЕ’MOLCHILAR XUQUQLARINI HIMOYA QILISH QO‘MITASI",
+    "main_title": "O‘ZBЕKISTON RЕSPUBLIKASI RAQOBATNI RIVOJLANTIRISH VA ISTЕ’MOLCHILAR HUQUQLARINI HIMOYA QILISH QO‘MITASI",
     "home": "ASOSIY SAHIFA",
     "raqobat_site": "RAQOBAT QO‘MITASI VЕB-SAYTI"
   },
@@ -4532,8 +4532,10 @@
   "court_online": {
     "card_title": "ONLAYN QAROR VA KO‘RSATMA",
     "card_subtitle": "Maxsus komissiya tomonidan qabul qilingan qaror va ko‘rsatmalarni inson omilisiz onlayn olish",
-    "require_txt": "Komissiya qarorlarini tekshirish uchun JSH SHIR yoki STIR kiriting",
-    "take_court_btn": "Sud qarorini olish"
+    "require_txt": "Maxsus komissiya qaror (ko‘rsatma)larini tekshirish uchun JSH SHIR yoki STIR kiriting!",
+    "take_court_btn": "Qaror (ko‘rsatma)ni olish",
+    "modal_message": "Hurmatli fuqaro Sizga elektron shaklda maxsus komissiya tomonidan qaror (ko‘rsatma) yuborilmadi!",
+    "modal_red_message": "Hurmatli fuqaro Sizga elektron shaklda maxsus komissiya tomonidan qaror (ko‘rsatma) yuborildi. Qaror (ko‘rsatma)ni olish uchun axborot tizimidan ro‘yxatdan o‘tib shaxsiy kabinetga ega bo‘ling!"
   },
   "court_table_list": {
     "card_title": "MAJLISLAR JADVALI",
@@ -4579,7 +4581,7 @@
   "sud_xabarnoma": {
     "card_title": "XABARNOMA",
     "card_subtitle": "Maxsus komissiya tomonidan ishlarni majlisga tayinlangan sanasi va vaqti haqida xabarnomani onlayn tarzda olish",
-    "require_txt": "Xabarnomani tekshirish uchun JSH SHIR yoki STIR kiriting",
+    "require_txt": "Maxsus komissiya tomonidan yuborilgan chaqiruv xabarnomasini tekshirish uchun JSH SHIR yoki STIR kiriting!",
     "take_court_btn": "Xabarnomani o'qish",
     "checked": "Tekshirildi",
     "checked_today": "Bugun tekshirildi",
@@ -4588,8 +4590,8 @@
     "telegram": "Bizning Telegram bot",
     "support": "Texnik xizmat ko'rsatish",
     "qomita": "Raqobat qo'mitasi",
-    "modal_message": "Hurmatli fuqaro Sizga elektron shaklda komissiya xabarnomasi kelib tushmagan!",
-    "modal_red_message": "Hurmatli fuqaro Sizga elektron shaklda komissiya xabarnomasi yuborilgan. Komissiya xabarnomasini olish uchun axborat tizimidan ro‘yxatdan o‘tib shaxsiy kabinetga ega bo‘ling!",
+    "modal_message": "Hurmatli fuqaro Sizga elektron shaklda maxsus komissiya tomonidan chaqiruv xabarnomasi kelib tushmagan!",
+    "modal_red_message": "Hurmatli fuqaro Sizga elektron shaklda maxsus komissiya tomonidan chaqiruv xabarnomasi yuborildi. Chaqiruv xabarnomasini olish uchun axborot tizimidan ro‘yxatdan o‘tib shaxsiy kabinetga ega bo‘ling!",
     "modal_btn": "Xabarni o'qish"
   },
   "online_kuzatuv": {
