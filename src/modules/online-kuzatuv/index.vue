@@ -89,49 +89,37 @@ export default {
     },
     sendRequest() {
       this.loading = true;
+      this.searchLoader = true;
+
       let check = {
         workNumber: this.workNumber,
         stir: this.stir,
-        pinfl: this.pinfl
-      }
-      this.searchLoader = true;
+        pinfl: this.pinfl,
+      };
+
       return CheckService.onlineKuzatuv(check)
           .then((result) => {
-            this.getUserDatas = result.data;
-            // console.log(result.data)
-            this.phoneNumber = '';
-            this.pinfl = '';
-            this.fish = '';
-            this.appealCount = '';
-            this.appealDate = '';
-            this.searchLoader = false;
-            this.loading = false;
-            if (
-                result.data &&
-                (result.data.count !== null ||
-                    result.data.date !== null ||
-                    result.data.firstName !== null ||
-                    result.data.lastName !== null ||
-                    result.data.middleName !== null)
-            ) {
-              this.$toast.success(this.$t('statistics_info.download_success'));
-              this.modalVisible = true;
-            } else {
+            if (!result.data || result.data.value === null) {
+              this.getUserDatas = []; // Update getUserDatas with an empty array
               this.$toast.error(this.$t('statistics_info.empty_message'));
-              this.modalVisible = true;
+            } else {
+              this.getUserDatas = result.data; // Update getUserDatas with the received data
+              // this.$toast.success(this.$t('statistics_info.download_success'));
             }
-            // console.log(result.data)
+
+            this.modalVisible = true;
           })
           .catch((err) => {
             this.$toast.error('Error');
-            // this.catchErr(err);
+            // this.loading = false;
           })
           .finally(() => {
+            // Ensure loaders are stopped regardless of success or error
             this.searchLoader = false;
-            this.searchingModal = false;
             this.loading = false;
+            this.searchingModal = false;
           });
-    },
+    }
   },
   mounted() {
     this.value = this.languages.find((x) => x.language === i18n.locale);
@@ -152,118 +140,129 @@ export default {
 <template>
   <div class="row m-0">
     <b-col class="mb-2 mt-3">
-      <b-button style="background: #F39138" class="btn btn-warning" size="md" @click="$router.go(-1)">
+      <b-button
+          class="btn btn-warning"
+          size="md"
+          style="background: #F39138"
+          @click="$router.go(-1)"
+      >
         {{ $t("actions.back") }}
       </b-button>
     </b-col>
+
     <div class="col-12 mt-4">
       <div class="text-center">
         <h4 class="font-weight-bold d-inline-block mb-4" style="color: #226358;">
           {{ $t('pharm_check_sms.main_title') }}
         </h4>
       </div>
+
       <div class="d-flex justify-content-center">
-        <h4 class="p-5" style="color: #226358">
+        <h4 class="p-5" style="color: #226358;">
           {{ $t('online_kuzatuv.require_txt') }}
         </h4>
       </div>
+
       <div class="card mx-auto d-block p-3" style="border: 1px solid #226358; width: 750px">
         <div class="d-flex justify-content-between">
-          <b-button @click="showInput('workNumber')"
-                  :class="{'active-class-style1': activeInput === 'workNumber', 'inactive-class-style1': activeInput !== 'workNumber'}"
-                  style="height: 35px"
-                  class="d-flex align-items-center">
+          <b-button
+              @click="showInput('workNumber')"
+              :class="{'active-class-style1': activeInput === 'workNumber', 'inactive-class-style1': activeInput !== 'workNumber'}"
+              class="d-flex align-items-center"
+              style="height: 35px"
+          >
             {{ $t('online_kuzatuv.work_number_placeholder') }}
           </b-button>
-          <b-button @click="showInput('stir')"
-                  :class="{'active-class-style1': activeInput === 'stir', 'inactive-class-style1': activeInput !== 'stir'}"
-                    style="height: 35px"
-                    class="d-flex align-items-center">
+          <b-button
+              @click="showInput('stir')"
+              :class="{'active-class-style1': activeInput === 'stir', 'inactive-class-style1': activeInput !== 'stir'}"
+              class="d-flex align-items-center"
+              style="height: 35px"
+          >
             {{ $t('product_dashboard_info.stir') }}
           </b-button>
-          <b-button @click="showInput('pinfl')"
-                  :class="{'active-class-style1': activeInput === 'pinfl', 'inactive-class-style1': activeInput !== 'pinfl'}"
-                    style="height: 35px"
-                    class="d-flex align-items-center">
+          <b-button
+              @click="showInput('pinfl')"
+              :class="{'active-class-style1': activeInput === 'pinfl', 'inactive-class-style1': activeInput !== 'pinfl'}"
+              class="d-flex align-items-center"
+              style="height: 35px"
+          >
             {{ $t('services.online_checking.pinfl_placeholder') }}
           </b-button>
         </div>
+
         <b-row class="d-flex justify-content-center my-3">
-<!--          <input-->
-<!--              v-if="activeInput === 'workNumber'"-->
-<!--              class="form-control"-->
-<!--              style="width: 48%!important;"-->
-<!--              v-model="workNumber"-->
-<!--              placeholder="0-00-2024/00"-->
-<!--          />-->
-<!--          <label class="base-form-component__label" for="input-live">{{ $t('purchase_info.form1.number') }} <span style="color: red">*</span></label>-->
           <b-col cols="6" v-if="activeInput === 'workNumber'">
-          <b-form-input
-              v-if="activeInput === 'workNumber'"
-              id="input-live"
-              v-model="workNumber"
-              :state="nameState"
-              class=""
-              placeholder="0-00-2024/00"
-              trim
-          ></b-form-input>
-          <b-form-invalid-feedback
-              id="input-live-feedback"
-              v-if="activeInput === 'workNumber'"
-          >
-            <span v-if="workNumber">{{ $t('online_kuzatuv.errorFeedback') }}</span>
-          </b-form-invalid-feedback>
+            <b-form-input
+                id="input-work-number"
+                v-model="workNumber"
+                :state="nameState"
+                placeholder="0-00-2024/00"
+                trim
+            ></b-form-input>
+            <b-form-invalid-feedback v-if="workNumber">
+              {{ $t('online_kuzatuv.errorFeedback') }}
+            </b-form-invalid-feedback>
           </b-col>
+
           <b-col cols="6" v-if="activeInput === 'stir'">
-          <input
-              v-if="activeInput === 'stir'"
-              class="form-control"
-              v-model="stir"
-              maxlength="9"
-              :state="nameState"
-              placeholder="000 000 000"
-          />
+            <b-form-input
+                id="input-stir"
+                v-model="stir"
+                :state="nameState"
+                maxlength="9"
+                placeholder="000 000 000"
+            ></b-form-input>
           </b-col>
-          <b-col cols="6"  v-if="activeInput === 'pinfl'">
-          <input
-              v-if="activeInput === 'pinfl'"
-              class="form-control"
-              v-model="pinfl"
-              maxlength="14"
-              type="number"
-              placeholder="00000000000000"
-          />
+
+          <b-col cols="6" v-if="activeInput === 'pinfl'">
+            <b-form-input
+                id="input-pinfl"
+                v-model="pinfl"
+                maxlength="14"
+                type="number"
+                placeholder="00000000000000"
+            ></b-form-input>
           </b-col>
         </b-row>
-        <button
+
+        <b-button
             @click="sendRequest"
             :disabled="!activeInputValue"
             class="btn btn-success w-50 d-flex justify-content-center mx-auto font-size-17"
-            style="background-color: #226358"
+            style="background-color: #226358;"
         >
           {{ $t('online_kuzatuv.take_court_btn') }}
-        </button>
+        </b-button>
       </div>
 
-      <b-modal id="modal-lg" size="md" centered no-close-on-backdrop no-close-on-esc hide-header-close>
+      <b-modal
+          id="modal-lg"
+          size="md"
+          centered
+          no-close-on-backdrop
+          no-close-on-esc
+          hide-header-close
+      >
         <div class="w-100 h-50 pt-3 pb-3">
           <div class="bg-white w-100 h-100 d-flex justify-content-center p-3">
             <b-row cols="12" class="text-center">
-              <b-col style="height: 0" class="text-success">
+              <b-col class="text-success">
                 {{ $t('pharm_check_sms.murojaat_count') }}
-                <b-form-text class="font-size-17 font-weight-bold" style="color: #226358">
-                  {{ getUserDatas.count ? getUserDatas.count : 0 }} ta
+                <b-form-text class="font-size-17 font-weight-bold" style="color: #226358;">
+                  {{ getUserDatas.count || 0 }} ta
                 </b-form-text>
               </b-col>
             </b-row>
           </div>
         </div>
+
         <template v-slot:modal-footer>
           <div class="w-100 d-flex justify-content-between">
-            <b-button @click="modalVisible = false" class=" border">
+            <b-button @click="modalVisible = false" class="border">
               {{ $t('submodules.dxa.close_modal') }}
             </b-button>
-            <a href="https://cabinet.fairtech.uz/" target="_blank" class="btn btn-primary ">
+            <a href="https://cabinet.fairtech.uz/" target="_blank" class="btn btn-primary">
               {{ $t('sud_xabarnoma.take_court_btn') }}
             </a>
           </div>
@@ -272,241 +271,204 @@ export default {
 
       <span class="loader" v-if="loading"></span>
 
-      <div class="mt-4 w-50 mx-auto p-2 mb-5" style="border: 1px solid #439b8e; border-radius: 5px" v-for="(item, index) in getUserDatas" :key="index">
+      <div
+          class="mt-4 w-50 mx-auto p-2 mb-5 user-card"
+          v-for="(item, index) in getUserDatas"
+          :key="index"
+      >
+        <!-- Work Number -->
         <b-row class="ml-1">
-            <span class="text-white p-1 font-weight-bold font-size-15" style="background-color: #226358; border-radius: 5px; width: 295px">
-              {{ $t('online_kuzatuv.workNumber') }}: {{ item && item.step2_all && item.step2_all.numberOfWork ? item.step2_all.numberOfWork : '---' }}
-            </span>
+      <span class="text-white p-1 font-weight-bold work-number">
+        {{ $t('online_kuzatuv.workNumber') }}:
+        {{ item?.step2_all?.numberOfWork ?? '---' }}
+      </span>
         </b-row>
-        <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
-          <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px">
-            <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.qozgatilgan_infos') }}</span>
+
+        <!-- Main Info Block -->
+        <div class="info-block">
+          <b-col class="section-header">
+        <span class="text-white p-2 font-weight-bold font-size-15">
+          {{ $t('online_kuzatuv.qozgatilgan_infos') }}
+        </span>
           </b-col>
+
+          <!-- Subject Name and Basis -->
           <b-row class="mt-3">
             <b-col>
-              <span style="color:#839690;">{{ $t('online_kuzatuv.subject_name') }}</span>
+              <span class="info-label">{{ $t('online_kuzatuv.subject_name') }}</span>
             </b-col>
             <b-col>
-              <span style="color:#839690;">{{ $t('online_kuzatuv.qozgatish_asosi') }}</span>
+              <span class="info-label">{{ $t('online_kuzatuv.qozgatish_asosi') }}</span>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <p class="detailText">
-                {{item.step1.nameSubject ? item.step1.nameSubject : '---'}}
-<!--                {{-->
-<!--                  getName({-->
-<!--                    nameLt: item.regionNameLt,-->
-<!--                    nameUz: item.regionNameRu,-->
-<!--                    nameRu: item.regionNameUz,-->
-<!--                  })-->
-<!--                }}-->
-              </p>
+              <p class="detail-text">{{ item.step1?.nameSubject ? item.step1?.nameSubject : '---' }}</p>
             </b-col>
             <b-col>
-              <p class="detailText"> {{item.step1.otherBasisName ? item.step1.otherBasisName : '---'}}</p>
+              <p class="detail-text">{{ item.step1?.otherBasisName ? item.step1?.otherBasisName : '---' }}</p>
             </b-col>
           </b-row>
 
+          <!-- Field and Registration Date -->
           <b-row class="mt-4">
             <b-col>
-              <span style="color:#839690;">{{ $t('online_kuzatuv.qozgatilgan_soha') }}</span>
+              <span class="info-label">{{ $t('online_kuzatuv.qozgatilgan_soha') }}</span>
             </b-col>
             <b-col>
-                  <span class="title" style="color:#839690;">{{ $t('online_kuzatuv.register_date') }}</span>
+              <span class="info-label">{{ $t('online_kuzatuv.register_date') }}</span>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <p class="detailText">
+              <p class="detail-text">
                 {{
                   getName({
-                    nameLt: item.step1.fieldWorkDto.nameLt,
-                    nameUz: item.step1.fieldWorkDto.nameRu,
-                    nameRu: item.step1.fieldWorkDto.nameUz,
-                  }) ? getName({
-                    nameLt: item.step1.fieldWorkDto.nameLt,
-                    nameUz: item.step1.fieldWorkDto.nameRu,
-                    nameRu: item.step1.fieldWorkDto.nameUz,
-                  }) : '---'
+                    nameLt: item?.step1?.fieldWorkDto?.nameLt ?? '---',
+                    nameUz: item?.step1?.fieldWorkDto?.nameRu ?? '---',
+                    nameRu: item?.step1?.fieldWorkDto?.nameUz ?? '---',
+                  })
                 }}
               </p>
             </b-col>
             <b-col>
-              <span class="detailText">
-                {{ item.step1?.regstrationDate ? item.step1.regstrationDate : '' }}
-              </span>
+              <span class="detail-text">{{ item.step1?.regstrationDate ? item.step1.regstrationDate : '' }}</span>
             </b-col>
-
-<!--            <b-col>-->
-<!--              <p v-if="item && item.step2_all && item.step2_all.resultDecisionNewDto">-->
-<!--                {{-->
-<!--                  getName({-->
-<!--                    nameLt: item.step2_all.resultDecisionNewDto.nameLt,-->
-<!--                    nameUz: item.step2_all.resultDecisionNewDto.nameRu,-->
-<!--                    nameRu: item.step2_all.resultDecisionNewDto.nameUz,-->
-<!--                  })-->
-<!--                }}-->
-<!--              </p>-->
-<!--            </b-col>-->
           </b-row>
+
+          <!-- Broken Documents and Defined Case Content -->
           <b-row>
             <b-col>
-              <span class="title" style="color:#839690;">{{ $t('online_kuzatuv.buzilgan_hujjatlar') }}</span>
+              <span class="info-label">{{ $t('online_kuzatuv.buzilgan_hujjatlar') }}</span>
             </b-col>
             <b-col>
-              <span class="title" style="color:#839690;">{{ $t('online_kuzatuv.aniqlangan_holat') }}</span>
+              <span class="info-label">{{ $t('online_kuzatuv.aniqlangan_holat') }}</span>
             </b-col>
           </b-row>
           <b-row>
+            <!-- Broken Documents -->
             <b-col>
-
-              <p class="mb-2"><b class="detailText">
-                            <span v-if="!showText">
-                           <span v-if="item.step1?.resultsCaseReviews.length > 0">
-                             <span v-if="getLocale == 'uz'">{{item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameLt.split(' ').slice(0, 5).join(' ')}}</span>
-                             <span v-if="getLocale == 'uzCyrillic'">{{item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameUz.split(' ').slice(0, 5).join(' ')}}</span>
-                             <span v-if="getLocale == 'ru'">{{item.step1?.resultsCaseReviews[0].brokenDocsDto?.nameRu.split(' ').slice(0, 5).join(' ')}}</span>
-                           </span>
-                            </span>
-                <ol v-if="showText">
-                  <li v-for="(sItem, sIndex) in item.step1?.resultsCaseReviews" :key="sIndex">
+              <p class="mb-2">
+                <b class="detail-text">
+                  <template v-if="!showText && item?.step1?.resultsCaseReviews.length">
                     {{
-                      getName({
-                        nameLt: sItem.brokenDocsDto.nameLt,
-                        nameUz: sItem.brokenDocsDto.nameUz,
-                        nameRu: sItem.brokenDocsDto.nameRu,
-                      })
+                      getLocale === 'uz' ? item.step1.resultsCaseReviews[0].brokenDocsDto?.nameLt?.split(' ').slice(0, 5).join(' ') :
+                          getLocale === 'uzCyrillic' ? item.step1.resultsCaseReviews[0].brokenDocsDto?.nameUz?.split(' ').slice(0, 5).join(' ') :
+                              item.step1.resultsCaseReviews[0].brokenDocsDto?.nameRu?.split(' ').slice(0, 5).join(' ')
                     }}
-                  </li>
-                </ol>
-                <span @click="showText = !showText" style="color:#f39138; cursor: pointer;">
-                              <span v-if="!showText"> ...{{$t('actions.details')}} ({{item.step1?.resultsCaseReviews.length}})</span>
-                              <span v-else> ...{{$t('actions.close')}}</span>
-                  <!--                              {{ !showText ? ($t('actions.details'))(lenghtOfCaseBrake) : $t('actions.hide')}}-->
-                            </span>
-              </b></p>
-              <!--              <b-row>-->
-              <!--                <b-col>-->
-              <!--                  <p class="value">{{item && item.step2_all && item.step2_all.seeWorkDate}}</p>-->
-              <!--                </b-col>-->
-              <!--                <b-col>-->
-              <!--                  <p class="value">{{item && item.step2_all && item.step2_all.timeEnd}}</p>-->
-              <!--                </b-col>-->
-              <!--              </b-row>-->
-            </b-col>
-            <b-col>
-              <p class="mb-2"><b class="detailText">
-                            <span v-if="item.step1?.definedCaseContent?.split(' ').length < 5">
-                                {{ item.step1?.definedCaseContent ? item.step1.definedCaseContent : '' }}
-                            </span>
-                <span v-else>
-                               <span v-if="!showTextMazmun">
-                                <span v-if="item.step1?.definedCaseContent">
-                                <span>{{
-                                    item.step1?.definedCaseContent ? item.step1.definedCaseContent.split(' ').slice(0, 5).join(' ') : ''
-                                  }}</span>
-                                </span>
-                            </span>
-                               <span v-if="showTextMazmun">
-                              {{ item.step1?.definedCaseContent ? item.step1.definedCaseContent : '' }}
-                            </span>
-                            <span @click="showTextMazmun = !showTextMazmun" style="color:#f39138; cursor: pointer;">
-                              <span v-if="!showTextMazmun"> ...{{ $t('actions.details') }}</span>
-                              <span v-else> ...{{ $t('actions.close') }}</span>
-                            </span>
-                            </span>
-              </b></p>
-            </b-col>
-          </b-row>
-        </div>
-
-        <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
-          <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px">
-            <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.seeWork_info') }}</span>
-          </b-col>
-          <b-row class="mt-3">
-            <b-col>
-              <span style="color:#839690;">{{ $t('online_kuzatuv.chairmon') }}</span>
-            </b-col>
-            <b-col>
-              <span style="color:#839690;">{{ $t('online_kuzatuv.seeWorkdate') }}</span>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <p class="detailText">
-                {{item && item.step2_all && item.step2_all.chairmanCommission ? item.step2_all.chairmanCommission : '---'}}
+                  </template>
+                  <ol v-else>
+                    <li v-for="(sItem, sIndex) in item?.step1?.resultsCaseReviews" :key="sIndex">
+                      {{
+                        getName({
+                          nameLt: sItem.brokenDocsDto?.nameLt ?? '---',
+                          nameUz: sItem.brokenDocsDto?.nameUz ?? '---',
+                          nameRu: sItem.brokenDocsDto?.nameRu ?? '---',
+                        })
+                      }}
+                    </li>
+                  </ol>
+                  <span @click="showText = !showText" class="toggle-link">
+                {{ !showText ? `...${$t('actions.details')} (${item?.step1?.resultsCaseReviews.length})` : `...${$t('actions.close')}` }}
+              </span>
+                </b>
               </p>
             </b-col>
+
+            <!-- Defined Case Content -->
             <b-col>
-                  <span class="value detailText">{{item && item.step2_all && item.step2_all.seeWorkDate ? item.step2_all.seeWorkDate : '---'}}</span>
-                  <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd ? item.step2_all.timeEnd : '---'}}</span>
+              <p class="mb-2">
+                <b class="detail-text">
+                  <span v-if="item?.step1?.definedCaseContent?.split(' ').length < 5">
+                    {{ item.step1.definedCaseContent ?? '' }}
+                  </span>
+                  <span v-else>
+                    <span v-if="!showTextMazmun">
+                      {{ item.step1?.definedCaseContent?.split(' ').slice(0, 5).join(' ') }}
+                    </span>
+                    <span v-else>
+                      {{ item.step1.definedCaseContent ?? '' }}
+                    </span>
+                    <span @click="showTextMazmun = !showTextMazmun" class="toggle-link">
+                  {{ !showTextMazmun ? `...${$t('actions.details')}` : `...${$t('actions.close')}` }}
+                </span>
+                  </span>
+                </b>
+              </p>
             </b-col>
           </b-row>
         </div>
 
-        <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px">
-          <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px">
-            <span class="text-white p-2 font-weight-bold font-size-15">{{ $t('online_kuzatuv.final_result') }}</span>
-          </b-col>
-          <b-row>
-            <!-- Left Column with Two Boxes -->
-            <b-col>
-              <!-- First Box: Qaror mazmuni -->
-              <div class="left-box my-3">
-                <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.court_mind') }}</span>
-                <p v-if="item && item.step2_all && item.step2_all.resultDecisionNewDto.code === 'QANOATLANTIRILDI'" style="color:#f39138;" class="detailText">
-                  {{
-                    getName({
-                      nameLt: item.step2_all.resultDecision.nameLt,
-                      nameUz: item.step2_all.resultDecision.nameRu,
-                      nameRu: item.step2_all.resultDecision.nameUz,
-                    }) ?
-                    getName({
-                      nameLt: item.step2_all.resultDecision.nameLt,
-                      nameUz: item.step2_all.resultDecision.nameRu,
-                      nameRu: item.step2_all.resultDecision.nameUz,
-                    }) : '---'
-                  }}
-                </p>
-                <p v-else style="color:#f39138;">
-                  {{
-                    getName({
-                      nameLt: item.step2_all.resultDecisionNewDto.nameLt,
-                      nameUz: item.step2_all.resultDecisionNewDto.nameRu,
-                      nameRu: item.step2_all.resultDecisionNewDto.nameUz,
-                    }) ?
-                    getName({
-                      nameLt: item.step2_all.resultDecisionNewDto.nameLt,
-                      nameUz: item.step2_all.resultDecisionNewDto.nameRu,
-                      nameRu: item.step2_all.resultDecisionNewDto.nameUz,
-                    }) : '---'
-                  }}
-                </p>
-              </div>
-              <!-- Second Box: Qaror sanasi -->
-              <div class="left-box my-3">
-                <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.court_date') }}</span>
-                <div>
-                <span class="value detailText">{{item && item.step2_all && item.step2_all.decisionDate}}</span>
-                <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd}}</span>
-                </div>
-              </div>
+        <div>
+          <!-- First Section: See Work Info -->
+          <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px;">
+            <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px;">
+        <span class="text-white p-2 font-weight-bold font-size-15">
+          {{ $t('online_kuzatuv.seeWork_info') }}
+        </span>
             </b-col>
 
-            <!-- Right Column with Larger Box -->
-            <b-col>
-              <div class="my-3">
-                <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.short_mind') }}</span>
+            <b-row class="mt-3">
+              <b-col>
+                <span style="color:#839690;">{{ $t('online_kuzatuv.chairmon') }}</span>
                 <p class="detailText">
-                  {{
-                    item && item.step2_all && item.step2_all.decisionOfContent ? item.step2_all.decisionOfContent : '---'
-                  }}
+                  {{ item?.step2_all?.chairmanCommission || '---' }}
                 </p>
-              </div>
+              </b-col>
+              <b-col>
+                <span style="color:#839690;">{{ $t('online_kuzatuv.seeWorkdate') }}</span>
+                <p class="detailText">
+                  <span class="value detailText">{{item && item.step2_all && item.step2_all.decisionDate}}</span>
+                  <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd}}</span>
+                </p>
+              </b-col>
+            </b-row>
+          </div>
+
+          <!-- Second Section: Final Result -->
+          <div class="justify-content-center p-2 my-2" style="border: 1px solid #439b8e; border-radius: 5px;">
+            <b-col class="p-1 ml-0" style="background-color: #226358; border-radius: 5px; width: 290px;">
+        <span class="text-white p-2 font-weight-bold font-size-15">
+          {{ $t('online_kuzatuv.final_result') }}
+        </span>
             </b-col>
-          </b-row>
+
+            <b-row>
+              <!-- Left Column with Two Boxes -->
+              <b-col>
+                <!-- First Box: Court Decision -->
+                <div class="my-3">
+                  <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.court_mind') }}</span>
+                  <p style="color:#f39138;" class="detailText">
+                    {{ getName({
+                    nameLt: item?.step2_all?.resultDecision?.nameLt || item?.step2_all?.resultDecision?.nameUz,
+                    nameUz: item?.step2_all?.resultDecision?.nameRu || item?.step2_all?.resultDecision?.nameUz,
+                    nameRu: item?.step2_all?.resultDecision?.nameUz || item?.step2_all?.resultDecision?.nameLt,
+                  }) }}
+                  </p>
+                </div>
+
+                <!-- Second Box: Court Date -->
+                <div class="my-3">
+                  <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.court_date') }}</span>
+                  <p class="detailText">
+                    <span class="value detailText">{{item && item.step2_all && item.step2_all.decisionDate}}</span>
+                    <span class="value detailText"> {{item && item.step2_all && item.step2_all.timeEnd}}</span>
+                  </p>
+                </div>
+              </b-col>
+
+              <!-- Right Column with Decision Content -->
+              <b-col>
+                <div class="my-3">
+                  <span class="box-title" style="color:#839690;">{{ $t('online_kuzatuv.short_mind') }}</span>
+                  <p class="detailText">
+                    {{ item?.step2_all?.decisionOfContent || '---' }}
+                  </p>
+                </div>
+              </b-col>
+            </b-row>
+          </div>
         </div>
       </div>
     </div>
@@ -714,7 +676,38 @@ p{
   box-sizing: border-box;
   animation: animloader 0.3s 0.3s linear infinite alternate;
 }
+.user-card {
+  border: 1px solid #439b8e;
+  border-radius: 5px;
+}
 
+.work-number {
+  background-color: #226358;
+  border-radius: 5px;
+  width: 295px;
+}
+
+.info-block {
+  border: 1px solid #439b8e;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.section-header {
+  background-color: #226358;
+  border-radius: 5px;
+  width: 290px;
+}
+
+.info-label {
+  color: #839690;
+}
+
+.toggle-link {
+  color: #f39138;
+  cursor: pointer;
+}
 .loader::after, .loader::before {
   content: '';
   width: 8px;
