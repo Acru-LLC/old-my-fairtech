@@ -15,6 +15,7 @@ export default {
       isSubtitleVisible9: false,
       isSubtitleVisible10: false,
       isSubtitleVisible11: false,
+      isSubtitleVisible12: false,
       showModal: false,
       showModal2: false,
       showModalPrice: false
@@ -55,6 +56,9 @@ export default {
           break;
         case 'eleven':
           this.isSubtitleVisible11 = !this.isSubtitleVisible11
+          break;
+        case 'twelve':
+          this.isSubtitleVisible12 = !this.isSubtitleVisible12
       }
     },
   }
@@ -331,6 +335,27 @@ export default {
             <button @click="toggleSubtitle('eleven')" class="btn btn-link p-0 font-size-17">
               {{ $t('actions.details') }}
               <i class="font-size-12" :class="isSubtitleVisible11 ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-12 mb-4">
+          <div class="p-3" :class="isSubtitleVisible12 ? 'active-card' : 'inactive-card'"
+               style="border-radius: 5px; cursor: pointer; box-shadow: rgb(201 219 215) 2px 4px 8px 0px">
+            <div class="hover-effect">
+              <a href="https://quiz.fairtech.uz" target="_blank">
+                <img src="@/assets/image/icon.svg" alt="" class="custom-icons">
+                <!--                <i class="fab fa-telegram-plane"></i>-->
+                <h4 class="padding-t-15 text-color font-weight-bold">{{ $t('quiz.title') }}</h4>
+                <p class="padding-t-10 text-color" v-if="isSubtitleVisible12">
+                  {{ $t('quiz.subtitle') }}
+                </p>
+              </a>
+            </div>
+            <!-- "Batafsil" Button with Chevron -->
+            <button @click="toggleSubtitle('twelve')" class="btn btn-link p-0 font-size-17">
+              {{ $t('actions.details') }}
+              <i class="font-size-12" :class="isSubtitleVisible12 ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
             </button>
           </div>
         </div>

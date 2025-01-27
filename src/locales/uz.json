@@ -4626,5 +4626,9 @@
   "samaradorlik": {
     "title": "Samaradorlik",
     "subtitle": "Davlat organlari va xo‘jalik yurituvchi subyektlarda monopoliyaga qarshi komplayensni joriy etish va uning samaradorligini baholash tizimi"
+  },
+  "quiz": {
+    "title": "Test va so‘rovnomalar o‘tkazish",
+    "subtitle": "Raqobat, isteʼmolchilar huquqlarini himoya qilish va reklama sohalarida onlayn tarzda turli xil so‘rovlar o‘tkazib borish"
   }
 }
