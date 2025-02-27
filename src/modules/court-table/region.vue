@@ -61,11 +61,19 @@
         </b-col>
       </b-row>
       <b-row class="mb-3 d-flex justify-content-center">
-        <p v-if="selectedRegionTitle !== $t('court_table_list.region.qomita')"><b class="text-color"> {{ selectedRegionTitle }} </b>{{$t('sud_xabarnoma.qomita')}}{{$t('court_table_list.region.first_part_for_qomita')}}
+        <p v-if="selectedRegionTitle !== $t('court_table_list.region.qomita') && selectedRegionTitle !== $t('rais.region.republic')">
+          {{$t('sud_xabarnoma.qomita')}}
+          <b class="text-color"> {{ selectedRegionTitle === $t('court_table_list.region.qoraqalpoq') ? $t('court_table_list.region.qoraqalpoq') : selectedRegionTitle.slice(0, -1) }} </b>
+          {{$t('court_table_list.region.first_part_text')}}
           <b class="text-color">{{ today }}</b>
           {{ $t('court_table_list.region.second_part_text') }}</p>
 
-        <p v-else><b class="text-color"> {{ $t('court_table_list.region.only_qomita') }}</b>{{$t('rais.region.first_part_for_qomita')}}
+        <p v-if="selectedRegionTitle === $t('rais.region.republic')">
+          {{$t('court_table_list.region.republic_title')}}
+          <b class="text-color">{{ today }}</b>
+          {{ $t('court_table_list.region.second_part_text') }}</p>
+
+        <p v-if="selectedRegionTitle === $t('court_table_list.region.qomita')"><b class="text-color"> {{ $t('court_table_list.region.only_qomita') }}</b>{{$t('rais.region.first_part_for_qomita')}}
           <b class="text-color">{{ formattedDate }}</b>
           {{ $t('court_table_list.region.second_part_text') }}</p>
       </b-row>
@@ -76,6 +84,7 @@
           <thead class="bg-primary text-white">
           <tr class="text-center">
             <th class="align-middle">№</th>
+            <th class="align-middle"><span>{{ $t('court_table_list.region.tabTitle') }}</span></th>
             <th class="align-middle"><span>{{ $t('court_table_list.table_columns.subyekt') }}</span></th>
             <th class="align-middle"><span>{{ $t('court_table_list.table_columns.soha') }}</span></th>
             <th class="align-middle"><span>{{ $t('court_table_list.table_columns.docs') }}</span></th>
@@ -89,6 +98,15 @@
           <span class="loader position-absolute" style="top: 100%; left: 50%;" v-if="loading"></span>
           <tr v-for="(item, index) in cases" :key="index">
             <td class="align-middle"><span>{{ index + 1 }}</span></td>
+            <td class="align-middle"><span>
+              {{
+              getName({
+                nameEn: item.regionNameEn,
+                nameLt: item.regionNameLt,
+                nameUz: item.regionNameUz,
+                nameRu: item.regionNameRu,
+              })}}
+            </span></td>
             <td class="align-middle">
               <span v-if="getLocale == 'uzCyrillic'">{{ toCyrill(item && item.step1 && item.step1.nameSubject ? item.step1.nameSubject : '---') }}</span>
               <span v-else>{{ item && item.step1 && item.step1.nameSubject ? item.step1.nameSubject : '---' }}</span>
@@ -199,7 +217,7 @@ export default {
     regionIsCentral: null,
     testValue: {},
     regionData: [
-      // { value: 17, title: "rais.region.republic" },
+      { value: 17, title: "rais.region.republic" },
       { value: 1735, title: "court_table_list.region.qoraqalpoq" },
       { value: 1703, title: "court_table_list.region.andijon" },
       { value: 1706, title: "court_table_list.region.buxoro" },
@@ -429,7 +447,7 @@ th, td {
   padding: 8px;
 }
 .table-container {
-  max-height: 500px; /* Adjust this value as needed */
+  max-height: 100vh; /* Adjust this value as needed */
   overflow-y: auto;
 }
 
