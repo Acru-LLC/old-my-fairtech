@@ -26,6 +26,7 @@
     "jspdf-autotable": "^3.5.28",
     "leaflet": "^1.7.1",
     "leaflet-draw": "^1.0.4",
+    "lotin-kirill": "^0.1.5",
     "metismenujs": "^1.2.1",
     "nprogress": "^0.2.0",
     "pdfjs-dist": "^2.6.347",
