@@ -2792,7 +2792,7 @@
     },
     "month": "Oylik hisobot shakllantirish",
     "menu_title": "Pharm Info",
-    "subtitle": "\"Pharm Info\" dorixona korxonalari uchun mo‘ljallangan bo‘lib, yuridik shaxslarga o‘z korxonalariga kelib tushgan murojaatlar to‘g‘risida axborot olish imkonini beradi. Murojaatlar \"Pharm Info\" tizimi orqali avtomat tarzda yo‘naltiriladi",
+    "subtitle": "Mazkur tizim dori vositalarining chanaka va ulgurji savdosi bilan shug‘ullanuvchi subyektlar uchun mo‘ljallangan bo‘lib, dori vositalarining chanaka va ulgurji referent narxlariga rioya etilmaganlik holatlari to‘g‘risida axborot olish imkonini beradi",
     "isChecked": "Pul qaytarilsinmi",
     "received_applications": "Kelib tushganlar",
     "appeal_number": "Murojaat raqami",
